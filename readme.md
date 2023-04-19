@@ -9,4 +9,4 @@ Currently supported addon planes:
 
 I will provide support for more planes at some point.
 
-For pictures, wiring diagrams and 3d files for my own AP and RADIO panels can be found here: 
+For pictures, wiring diagrams and 3d files for my own AP and RADIO panels can be found here: https://drive.google.com/drive/folders/1SNh3eq69u7Eu7Pojo8cid7GepFM5sCCh?usp=sharing
