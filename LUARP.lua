@@ -10,11 +10,11 @@
 
 -- Datarefs to output
 
-LUARP_IS_AP1_ON = create_dataref_table("FlyWithLua/LUARP_IS_AP1_ON", "Int") 
-LUARP_IS_AP2_ON = create_dataref_table("FlyWithLua/LUARP_IS_AP2_ON", "Int") 
+--LUARP_IS_AP1_ON = create_dataref_table("FlyWithLua/LUARP_IS_AP1_ON", "Int") 
+--LUARP_IS_AP2_ON = create_dataref_table("FlyWithLua/LUARP_IS_AP2_ON", "Int") 
 
 -- Speed and throttle
-LUARP_IS_ATHR_ON = create_dataref_table("FlyWithLua/LUARP_IS_ATHR_ON", "Int") 
+--LUARP_IS_ATHR_ON = create_dataref_table("FlyWithLua/LUARP_IS_ATHR_ON", "Int") 
 -- above prolly not needed? as theres no led or anything
 
 
@@ -334,9 +334,94 @@ function Toliss_Custom_Refresh() -- needed to sync the toliss custom datarefs ot
 	end -- managed speed off is equilevant of boeing SPD mode ON.
 
 
+
+
+
+
+--
+	
+
+
+
 end 
 
 do_every_frame ("Toliss_Custom_Refresh()")
+
+
+--[[
+function toliss_squawk()
+
+	---- For squawk
+
+	dataref("squawk_for_toliss_luarp_num", "sim/cockpit/radios/transponder_code", "readonly")
+	local toliss_sq_luarp = tostring(squawk_for_toliss_luarp_num)
+
+	dataref("toliss_sq1", "AirbusFBW/XPDR1", "writeable")
+	dataref("toliss_sq2", "AirbusFBW/XPDR2", "writeable")
+	dataref("toliss_sq3", "AirbusFBW/XPDR3", "writeable")
+	dataref("toliss_sq4", "AirbusFBW/XPDR4", "writeable")
+
+	-- check if match 
+	if ((toliss_sq4 ~= tonumber(toliss_sq_luarp:byte(1)))) then
+		toliss_sq1 = 5
+		print("changed to 5")
+		--[[
+		-- last digit
+		if (string.len(toliss_sq_luarp) == 4) then
+			toliss_sq_1 = tonumber(toliss_sq_luarp.byte(4))
+		end
+
+		if (string.len(toliss_sq_luarp) >= 3) then
+			toliss_sq_2 = tonumber(toliss_sq_luarp.byte(3))
+		end
+
+		if (string.len(toliss_sq_luarp) >= 2) then
+			toliss_sq_3 = tonumber(toliss_sq_luarp.byte(2))
+		end
+
+		if (string.len(toliss_sq_luarp) >= 1) then
+			toliss_sq_4 = tonumber(toliss_sq_luarp.byte(1))
+		end
+
+	end
+end
+--do_sometimes("toliss_squawk()")
+]]
+
+dataref("toliss_ap1_status", "AirbusFBW/AP1Engage", "readonly")
+dataref("toliss_ap2_status", "AirbusFBW/AP2Engage", "readonly")
+dataref("toliss_athr_status", "AirbusFBW/ATHRmode", "readonly")
+
+
+
+function LUARP_COMMAND_AP1_ON()
+	if (toliss_ap1_status == 0) then command_once ("toliss_airbus/ap1_push") end
+end
+
+function LUARP_COMMAND_AP1_OFF()
+	if (toliss_ap1_status == 1) then command_once ("toliss_airbus/ap1_push") end
+
+end
+
+function LUARP_COMMAND_AP2_ON()
+	if (toliss_ap2_status == 0) then command_once ("toliss_airbus/ap2_push") end
+end
+
+function LUARP_COMMAND_AP2_OFF()
+	if (toliss_ap2_status == 1) then command_once ("toliss_airbus/ap2_push") end
+
+end
+
+
+function LUARP_COMMAND_ATHR_ON()
+	if (toliss_athr_status == 0) then command_once ("AirbusFBW/ATHRbutton") end
+end
+
+function LUARP_COMMAND_ATHR_OFF()
+	if (toliss_athr_status ~= 0) then command_once ("AirbusFBW/ATHRbutton") end
+end
+
+
 
 function LUARP_COMMAND_SPD_TOGGLE()
 	if SPD_FROM_ACF_LUARP == 0 then -- if SPD isn't on, its controlled by ap. Pull the knob to be able to manage the speed uself
@@ -444,6 +529,22 @@ function LUARP_ALT_INCREMENT_CHG()
 	end 
 end 
 
+-- tcas stuff
+dataref("TOLISS_TCAS_POS", "AirbusFBW/XPDRPower", "writeable")
+
+function LUARP_COMMAND_TCAS_STBY()
+	TOLISS_TCAS_POS = 0
+end
+
+function LUARP_COMMAND_TCAS_XPDR()
+	TOLISS_TCAS_POS = 2
+end
+function LUARP_COMMAND_TCAS_TA()
+	TOLISS_TCAS_POS = 3
+end
+function LUARP_COMMAND_TCAS_TARA()
+	TOLISS_TCAS_POS = 4
+end
 
 
 
@@ -781,6 +882,7 @@ end
 --end 
 
 
+
 function Refresh_output()-- Outputs, so LEDs aka lights on the buttons and 7 segment displays
 -- set the outputs aka led status to whatever the plane's dataref says
 -- lateral navigation
@@ -811,7 +913,7 @@ function Refresh_output()-- Outputs, so LEDs aka lights on the buttons and 7 seg
 		LUARP_IS_VS_ON[0] = VS_FROM_ACF_LUARP
 	end --with zibo, set the vs value to blank if vs mode not on
 
-	LUARP_DRAWN_VS[0] = VS_VAL_FROM_ACF_LUARP 
+	LUARP_DRAWN_VS[0] = (VS_VAL_FROM_ACF_LUARP / 100) -- no space on my 7seg
 	
 -- CRS
 	LUARP_DRAWN_CRS[0] = CRS_VAL_FROM_ACF_LUARP 
@@ -831,6 +933,19 @@ do_every_frame("Refresh_output()")
 
 -- So creating universal commands. If xx is off, turn it on, in other cases (it's off) turn it off. This modifies the aircraft spesific dataref. When these commands are executed, they change the actual plane's dataref. When plane's dataref 
 -- is changed, the Refresh_output function changes the output value that's is shown on the panel. (so if xx button can't be turned on due to ac state, it won't and the light wont illuminate. No forcing here.)
+
+
+create_command ("FlyWithLua/LUARP_COMMAND_AP1_ON", "LUARP AP1 ON", "LUARP_COMMAND_AP1_ON()", "", "")
+create_command ("FlyWithLua/LUARP_COMMAND_AP1_OFF", "LUARP AP1 OFF", "LUARP_COMMAND_AP1_OFF()", "", "")
+
+create_command ("FlyWithLua/LUARP_COMMAND_AP2_ON", "LUARP AP2 ON", "LUARP_COMMAND_AP2_ON()", "", "")
+create_command ("FlyWithLua/LUARP_COMMAND_AP2_OFF", "LUARP AP2 OFF", "LUARP_COMMAND_AP2_OFF()", "", "")
+
+
+create_command ("FlyWithLua/LUARP_COMMAND_ATHR_ON", "LUARP ATHR ON", "LUARP_COMMAND_ATHR_ON()", "", "")
+create_command ("FlyWithLua/LUARP_COMMAND_ATHR_OFF", "LUARP ATHR OFF", "LUARP_COMMAND_ATHR_OFF()", "", "")
+
+
 
 -- Throttle and speed
 --create_command ("FlyWithLua/LUARP_COMMAND_N1_TOGGLE", "LUARP N1 TOGGLE", "if N1_FROM_ACF_LUARP == 0 then N1_FROM_ACF_LUARP = 1 else N1_FROM_ACF_LUARP = 0 end", "", "") -- INOP
@@ -868,6 +983,17 @@ create_command ("FlyWithLua/LUARP_COMMAND_VS_DN", "LUARP VS DN", "LUARP_COMMAND_
 -- CRS
 create_command ("FlyWithLua/LUARP_COMMAND_CRS_UP", "LUARP CRS UP", "LUARP_COMMAND_CRS_UP()", "", "") 
 create_command ("FlyWithLua/LUARP_COMMAND_CRS_DN", "LUARP CRS DN", "LUARP_COMMAND_CRS_DN()", "", "")
+
+
+
+
+-- Native works for radio stuff apart from transponder
+
+create_command ("FlyWithLua/LUARP_COMMAND_TCAS_STBY", "LUARP TCAS STBY", "LUARP_COMMAND_TCAS_STBY()", "", "") 
+create_command ("FlyWithLua/LUARP_COMMAND_TCAS_XPDR", "LUARP TCAS XPDR", "LUARP_COMMAND_TCAS_XPDR()", "", "") 
+create_command ("FlyWithLua/LUARP_COMMAND_TCAS_TA", "LUARP TCAS TA", "LUARP_COMMAND_TCAS_TA()", "", "") 
+create_command ("FlyWithLua/LUARP_COMMAND_TCAS_TARA", "LUARP TCAS TA RA", "LUARP_COMMAND_TCAS_TARA()", "", "") 
+
 
 
 
