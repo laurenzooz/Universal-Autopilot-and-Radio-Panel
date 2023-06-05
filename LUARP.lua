@@ -8,7 +8,7 @@
 -- DRAWN is the numerical value to be drawn on the 7seg display.
 
 
--- kaikki datarefit OUTPUTtia varten
+-- Datarefs to output
 
 LUARP_IS_AP1_ON = create_dataref_table("FlyWithLua/LUARP_IS_AP1_ON", "Int") 
 LUARP_IS_AP2_ON = create_dataref_table("FlyWithLua/LUARP_IS_AP2_ON", "Int") 
@@ -52,14 +52,54 @@ LUARP_DRAWN_CRS = create_dataref_table("FlyWithLua/LUARP_DRAWN_CRS", "Float")
 
 
 
+--- These are to indicate certain status of the thing to be drawn.
+-- e.g we can choose to draw dashes instead of the value (like on airbus managed mode)
+
+-- 0: Draw value normally
+-- 1: Leave blank
+-- 2: Draw dashes
+
+LUARP_SPD_STATUS = create_dataref_table("FlyWithLua/LUARP_SPD_STATUS", "Int") 
+LUARP_HDG_STATUS = create_dataref_table("FlyWithLua/LUARP_HDG_STATUS", "Int") 
+LUARP_ALT_STATUS = create_dataref_table("FlyWithLua/LUARP_ALT_STATUS", "Int") 
+LUARP_VS_STATUS =  create_dataref_table("FlyWithLua/LUARP_VS_STATUS", "Int") 
+LUARP_CRS_STATUS = create_dataref_table("FlyWithLua/LUARP_CRS_STATUS", "Int") 
+
+
+
+
+LUARP_COM1_STBY_STATUS = create_dataref_table("FlyWithLua/LUARP_COM1_STBY_STATUS", "Int") -- com2 not visible on eveyr plane
+LUARP_NAV1_ACTV_STATUS = create_dataref_table("FlyWithLua/LUARP_NAV1_ACTV_STATUS", "Int") 
+LUARP_NAV1_STBY_STATUS = create_dataref_table("FlyWithLua/LUARP_NAV1_STBY_STATUS", "Int") 
+
+
+
+LUARP_SPD_STATUS[0] = 0
+LUARP_HDG_STATUS[0] = 0
+LUARP_ALT_STATUS[0] = 0
+LUARP_VS_STATUS[0]  = 0
+LUARP_CRS_STATUS[0] = 0
+
+LUARP_COM1_STBY_STATUS[0] = 0
+LUARP_NAV1_ACTV_STATUS[0] = 0
+LUARP_NAV1_STBY_STATUS[0] = 0
+
+-- everything set to 0 (value drawn normally) by default
+
+
 
 -- Start the plane spesific settings and specialities. If no special stuff needed, only name the datarefs.
 --NOTE lua hangs if same name dataref gets assigned again. Hence the else for defaults
 
 
--- FROM ACF on arvot koneen datarefeista. VAL_arvot on value noille dialeille
+
+
+-- FROM ACF are from the planes. VAL is numerical value, rest are bool
 
 -- ZIBO
+
+
+
 if PLANE_ICAO == "B738" and XPLMFindDataRef("laminar/B738/autopilot/mcp_hdg_dial")~= nil then 
 -- AP buttons
 -- zibo doesn't let you write most datarefs
@@ -184,6 +224,10 @@ end
 -- TOLISS
 elseif PLANE_ICAO == "A319" and XPLMFindDataRef == "AirbusFBW/SPDmanaged" ~= nil then 
 
+-- crs always hidden as well as nav freqs
+LUARP_CRS_STATUS[0] = 1
+LUARP_NAV1_ACTV_STATUS[0] = 1
+LUARP_NAV1_STBY_STATUS[0] = 1
 
 
 -- configs per default datarefs. Inputs are writable, outputs (leds).
@@ -204,15 +248,15 @@ dataref("Toliss_Spd_Managed_for_luarp", "AirbusFBW/SPDmanaged", "readonly") --  
 dataref("SPEED_VAL_FROM_ACF_LUARP", "sim/cockpit/autopilot/airspeed", "writeable")
 
 -- Lateral navigation
-dataref("HDG_FROM_ACF_LUARP", "AirbusFBW/SPDmanaged", "readonly")
-dataref("Toliss_Hdg_Managed_for_luarp", "AirbusFBW/HDGmanaged", "readonly") --  HDG managed on airbus. (dashed). Push/pull stuff
+--dataref("HDG_FROM_ACF_LUARP", "AirbusFBW/SPDmanaged", "readonly")
+dataref("Toliss_Hdg_dashed_for_luarp", "AirbusFBW/HDGdashed", "readonly") --  HDG managed on airbus. (dashed). Push/pull stuff
 
 dataref("APP_FROM_ACF_LUARP", "AirbusFBW/APPRilluminated", "readonly")
 dataref("VORL_FROM_ACF_LUARP", "AirbusFBW/LOCilluminated", "readonly")
 
 
   
-dataref("HDG_VAL_FROM_ACF_LUARP", "sim/cockpit/autopilot/heading", "writeable")
+dataref("HDG_VAL_FROM_ACF_LUARP", "sim/cockpit2/autopilot/heading_dial_deg_mag_pilot", "writeable")
 
 
 -- Vertical Navigation
@@ -244,13 +288,54 @@ CRS_VAL_FROM_ACF_LUARP = 0 -- no course change for the bus, its done from the MC
 -- function LUARP_COMMAND_N1_TOGGLE() -- INOP
 -- end -- INOP
 function Toliss_Custom_Refresh() -- needed to sync the toliss custom datarefs other planes dont have
-if Toliss_VSdashed == 0 then VS_FROM_ACF_LUARP = 1 else VS_FROM_ACF_LUARP = 0 end  -- vs mode is used when VS is not dashed. 
-if Toliss_APVerrticalMode > 110 then LVLCHG_FROM_ACF_LUARP = 1 else LVLCHG_FROM_ACF_LUARP = 0 end 
-if Toliss_Alt_Managed_for_luarp == 1 then VNAV_FROM_ACF_LUARP = 1 else VNAV_FROM_ACF_LUARP = 0 end -- managed alt on is equilevant of boeing VNAV on
-if Toliss_Hdg_Managed_for_luarp == 1 then LNAV_FROM_ACF_LUARP = 1 else LNAV_FROM_ACF_LUARP = 0 end -- managed hdg on is equilevant to LNAV on
-if Toliss_Hdg_Managed_for_luarp == 0 then HDG_FROM_ACF_LUARP = 1 else HDG_FROM_ACF_LUARP = 0 end -- managed hdg off is equilevant of boeing HDG sel mode ON.
-if Toliss_Spd_Managed_for_luarp == 0 then SPD_FROM_ACF_LUARP = 1 else SPD_FROM_ACF_LUARP = 0 end -- managed speed off is equilevant of boeing SPD mode ON.
+	
+	if Toliss_VSdashed == 0 then 
+		VS_FROM_ACF_LUARP = 1 
+		LUARP_VS_STATUS[0] = 0
+	else 
+		VS_FROM_ACF_LUARP = 0 
+		LUARP_VS_STATUS[0] = 2
+
+	end  -- vs mode is used when VS is not dashed. 
+	
+	if Toliss_APVerrticalMode > 110 then LVLCHG_FROM_ACF_LUARP = 1 else LVLCHG_FROM_ACF_LUARP = 0 end 
+	
+	if Toliss_Alt_Managed_for_luarp == 1 then 
+		VNAV_FROM_ACF_LUARP = 1 
+		LUARP_SPD_STATUS[0] = 2 
+
+	else 
+		VNAV_FROM_ACF_LUARP = 0 
+	end -- managed alt on is equilevant of boeing VNAV on
+	
+
+	if Toliss_Hdg_dashed_for_luarp == 1 then 
+		LNAV_FROM_ACF_LUARP = 1 
+		LUARP_HDG_STATUS[0] = 2 -- dashed
+
+	else 
+		LNAV_FROM_ACF_LUARP = 0 
+	end -- managed hdg on is equilevant to LNAV on
+	
+	if Toliss_Hdg_dashed_for_luarp == 0 then 
+		HDG_FROM_ACF_LUARP = 1 
+		LUARP_HDG_STATUS[0] = 0 -- not dashed when hdg mode is on
+	else 
+		HDG_FROM_ACF_LUARP = 0 
+	end -- managed hdg off is equilevant of boeing HDG sel mode ON.
+	
+
+	if Toliss_Spd_Managed_for_luarp == 0 then 
+		SPD_FROM_ACF_LUARP = 1 
+		LUARP_SPD_STATUS[0] = 0 -- show
+	else 
+		SPD_FROM_ACF_LUARP = 0 
+		LUARP_SPD_STATUS[0] = 2 --dashed
+	end -- managed speed off is equilevant of boeing SPD mode ON.
+
+
 end 
+
 do_every_frame ("Toliss_Custom_Refresh()")
 
 function LUARP_COMMAND_SPD_TOGGLE()
@@ -527,13 +612,13 @@ function LUARP_ALT_INCREMENT_CHG()
 			cooldown_for_incrmnt = os.clock() -- reset timer 
 	end 
 end 
+end
 
 
+--[[
+-- defaults temporarily disabled
 
-
-
-
-else -- Defaults if no custom plane detected
+else -- Defaults if no custom plane detected 
 
 -- configs per default datarefs. Inputs are writable, outputs (leds).
 -- AP buttons
@@ -671,6 +756,7 @@ end
 function LUARP_COMMAND_CRS_DN() 
 	CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP - 1
 end 
+]]
 --[[
 
 local cooldown_for_incrmnt = os.clock()
@@ -692,7 +778,7 @@ function LUARP_ALT_INCREMENT_CHG()
 end 
 
 ]]
-end 
+--end 
 
 
 function Refresh_output()-- Outputs, so LEDs aka lights on the buttons and 7 segment displays
@@ -785,7 +871,9 @@ create_command ("FlyWithLua/LUARP_COMMAND_CRS_DN", "LUARP CRS DN", "LUARP_COMMAN
 
 
 
--------------- RADIO STUFF
+-------------- RADIO STUFF --------- DISABLED, native support works good enough
+
+--[[
 
 LUARP_COM_FREQ_ACTIVE_DRAWN = create_dataref_table ("FlyWithLua/LUARP_COM_FREQ_ACTIVE_DRAWN", "Float")
 LUARP_COM_FREQ_STBY_DRAWN = create_dataref_table ("FlyWithLua/LUARP_COM_FREQ_STBY_DRAWN", "Float")
@@ -932,3 +1020,4 @@ create_command ("FlyWithLua/LUARP_COMMAND_NAV_KHZ_DN", "dpwn the selected stby n
 
 
 
+]]
