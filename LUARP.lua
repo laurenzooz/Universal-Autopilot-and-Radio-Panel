@@ -615,21 +615,21 @@ end
 
 ------ Felis B742
 
-elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_ON_SW")~= nil then 
+elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_on_sw")~= nil then 
 	-- AP buttons
 	-- zibo doesn't let you write most datarefs
 	dataref("AP1_FROM_ACF_LUARP_eng", "B742/AP_panel/AP_engage_A", "writeable")  
 	dataref("AP2_FROM_ACF_LUARP_eng", "B742/AP_panel/AP_engage_B", "writeable") 
 
 	function check_ap_b742()
-		if AP1_FROM_ACF_LUARP_eng == 2 then AP1_FROM_ACF_LUARPJ = 1 else AP1_FROM_ACF_LUARP_eng = 0 end
-		if AP2_FROM_ACF_LUARP_eng == 2 then AP2_FROM_ACF_LUARPJ = 1 else AP2_FROM_ACF_LUARP_eng = 0 end
+		if AP1_FROM_ACF_LUARP_eng == 2 then AP1_FROM_ACF_LUARP = 1 else AP1_FROM_ACF_LUARP = 0 end
+		if AP2_FROM_ACF_LUARP_eng == 2 then AP2_FROM_ACF_LUARP = 1 else AP2_FROM_ACF_LUARP = 0 end
 	end
 	do_every_frame("check_ap_b742()")
 
 	
 	-- Throttle and speed
-	dataref("ATHR_FROM_ACF_LUARP", "B742/AP_panel/AT_ON_SW", "readonly") -- INOP
+	dataref("ATHR_FROM_ACF_LUARP", "B742/AP_panel/AT_on_sw", "writeable") -- INOP
 	
 	-- dataref("N1_FROM_ACF_LUARP", "laminar/B738/autopilot/n1_status", "readonly") -- INOP
 	
@@ -682,7 +682,7 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_ON_SW")~= nil 
 	dataref("HDG_VAL_FROM_ACF_LUARP", "B742/AP_panel/heading_set", "writeable")
 	
 	dataref("felis_vert_sel", "B742/AP_panel/AP_pitch_mode_sel", "writeable")
-	dataref("felis_altmode_sel", "B742/AP_panel/altitude_mode_switch", "writeable")
+	dataref("felis_altmode_sel", "B742/AP_panel/altitude_mode_sw", "writeable")
 
 
 
@@ -704,7 +704,7 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_ON_SW")~= nil 
 			SPD_FROM_ACF_LUARP = 1 -- ias hold
 			VS_FROM_ACF_LUARP = 0 
 		
-		elseif (felis_vert_sel == 4) then
+		elseif (felis_vert_sel == 3) then
 			VNAV_FROM_ACF_LUARP = 1 --vnav to mach hold 
 			SPD_FROM_ACF_LUARP = 0
 			VS_FROM_ACF_LUARP = 0 
@@ -753,20 +753,23 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_ON_SW")~= nil 
 	
 	
 	function LUARP_COMMAND_AP1_ON()
+		--print("commanding ap1 on")
+		--print(tostring(AP1_FROM_ACF_LUARP))
+		--print(tostring(AP1_FROM_ACF_LUARP_eng))
 		if (AP1_FROM_ACF_LUARP == 0) then AP1_FROM_ACF_LUARP_eng = 2 end
 	end
 	
 	function LUARP_COMMAND_AP1_OFF()
-		if (AP1_FROM_ACF_LUARP == 1) then AP1_FROM_ACF_LUARP_eng = 0 end
+		if (AP1_FROM_ACF_LUARP ~= 0) then AP1_FROM_ACF_LUARP_eng = 0 end
 	
 	end
 	
 	function LUARP_COMMAND_AP2_ON()
-		if (AP2_FROM_ACF_LUARP == 0) then AP2_FROM_ACF_LUARP_eng = 1 end
+		if (AP2_FROM_ACF_LUARP == 0) then AP2_FROM_ACF_LUARP_eng = 2 end
 	end
 	
 	function LUARP_COMMAND_AP2_OFF()
-		if (AP2_FROM_ACF_LUARP == 1) then AP2_FROM_ACF_LUARP_eng = 0 end
+		if (AP2_FROM_ACF_LUARP ~= 0) then AP2_FROM_ACF_LUARP_eng = 0 end
 	
 	end
 	
@@ -781,7 +784,7 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_ON_SW")~= nil 
 	
 	
 	function LUARP_COMMAND_SPD_TOGGLE()
-		felis_vert_sel = 2 
+		if felis_vert_sel ~= 2 then  felis_vert_sel = 2 else felis_vert_sel = 0 end
 	end 
 	
 	function LUARP_COMMAND_SPEED_UP()
@@ -817,40 +820,43 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_ON_SW")~= nil 
 	end 
 	
 	function LUARP_COMMAND_LVLCHG_TOGGLE()
-		felis_altmode_sel = -1
+		if felis_altmode_sel ~= -1 then  felis_altmode_sel = -1 else felis_altmode_sel = 0 end
+
 	end 
 	
 	function LUARP_COMMAND_ALTHLD_TOGGLE()
-		felis_altmode_sel = 1
+		if felis_altmode_sel ~= 1 then  felis_altmode_sel = 1 else felis_altmode_sel = 0 end
+
 	end 
 	
 	function LUARP_COMMAND_VNAV_TOGGLE()
-		felis_vert_sel = 3
+		if felis_vert_sel ~= 3 then  felis_vert_sel = 3 else felis_vert_sel = 0 end
+
 	end 
 	
 	function LUARP_COMMAND_ALT_UP() -- trying the alt increment chg. Not a nice way to do it 
-		ALT_VAL_FROM_ACF_LUARP = ALT_VAL_FROM_ACF_LUARP + 1
+		ALT_VAL_FROM_ACF_LUARP = ALT_VAL_FROM_ACF_LUARP + 100
 	
 	end 
 	
 	
 	function LUARP_COMMAND_ALT_DN()
-		ALT_VAL_FROM_ACF_LUARP = ALT_VAL_FROM_ACF_LUARP - 1
+		ALT_VAL_FROM_ACF_LUARP = ALT_VAL_FROM_ACF_LUARP - 100
 	end 
 
 
 	
 	function LUARP_COMMAND_VS_TOGGLE() 
-		felis_vert_sel = 1
+		if felis_vert_sel ~= 1 then  felis_vert_sel = 1 else felis_vert_sel = 0 end
 	end
 
 	
 	function LUARP_COMMAND_VS_UP()
-		VS_FROM_ACF_LUARP_div = VS_FROM_ACF_LUARP_div + 0.5
+		VS_FROM_ACF_LUARP_div = VS_FROM_ACF_LUARP_div + 0.05
 	end 
 	
 	function LUARP_COMMAND_VS_DN()	
-		VS_FROM_ACF_LUARP_div = VS_FROM_ACF_LUARP_div - 0.5
+		VS_FROM_ACF_LUARP_div = VS_FROM_ACF_LUARP_div - 0.05
 	end 
 	
 	function LUARP_COMMAND_CRS_UP()
@@ -872,13 +878,13 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_ON_SW")~= nil 
 	end
 	
 	function LUARP_COMMAND_TCAS_XPDR()
-		felis_tcas_sel = 1
+		felis_tcas_sel = 3
 	end
 	function LUARP_COMMAND_TCAS_TA()
-		felis_tcas_sel = 2
+		felis_tcas_sel = 1
 	end
 	function LUARP_COMMAND_TCAS_TARA()
-		felis_tcas_sel = 3
+		felis_tcas_sel = 2
 	end
 
 
