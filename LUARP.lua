@@ -103,11 +103,11 @@ LUARP_NAV1_STBY_STATUS[0] = 0
 if PLANE_ICAO == "B738" and XPLMFindDataRef("laminar/B738/autopilot/mcp_hdg_dial")~= nil then 
 -- AP buttons
 -- zibo doesn't let you write most datarefs
---dataref("AP1_FROM_ACF_LUARP", "laminar/B738/autopilot/cmd_a_status", "readonly")  -- INOP
---dataref("AP2_FROM_ACF_LUARP", "laminar/B738/autopilot/cmd_b_status", "writeable")  -- INOP
+dataref("AP1_FROM_ACF_LUARP", "laminar/B738/autopilot/cmd_a_status", "readonly")  -- INOP
+dataref("AP2_FROM_ACF_LUARP", "laminar/B738/autopilot/cmd_b_status", "readonly")  -- INOP
 
 -- Throttle and speed
--- Dataref("ATHR_FROM_ACF_LUARP", "laminar/B738/autopilot/autothrottle_arm_pos", "readonly") -- INOP
+dataref("ATHR_FROM_ACF_LUARP", "laminar/B738/autopilot/autothrottle_status", "readonly") -- INOP
 
 -- dataref("N1_FROM_ACF_LUARP", "laminar/B738/autopilot/n1_status", "readonly") -- INOP
 dataref("SPD_FROM_ACF_LUARP", "laminar/B738/autopilot/speed_status1", "readonly")
@@ -140,6 +140,35 @@ dataref("luarp_zibo_show_vs", "laminar/B738/autopilot/vvi_dial_show", "readonly"
 dataref ("CRS_VAL_FROM_ACF_LUARP", "laminar/B738/autopilot/course_pilot", "writeable")
 
 -- what happens when actuating the custom commands
+
+
+function LUARP_COMMAND_AP1_ON()
+	if (AP1_FROM_ACF_LUARP == 0) then command_once ("laminar/B738/autopilot/cmd_a_press") end
+end
+
+function LUARP_COMMAND_AP1_OFF()
+	if (AP1_FROM_ACF_LUARP == 1) then command_once ("laminar/B738/autopilot/cmd_a_press") end
+
+end
+
+function LUARP_COMMAND_AP2_ON()
+	if (AP2_FROM_ACF_LUARP == 0) then command_once ("laminar/B738/autopilot/cmd_b_press") end
+end
+
+function LUARP_COMMAND_AP2_OFF()
+	if (AP2_FROM_ACF_LUARP == 1) then command_once ("laminar/B738/autopilot/cmd_b_press") end
+
+end
+
+
+function LUARP_COMMAND_ATHR_ON()
+	if (ATHR_FROM_ACF_LUARP == 0) then command_once ("laminar/B738/autopilot/autothrottle_arm_toggle") end
+end
+
+function LUARP_COMMAND_ATHR_OFF()
+	if (ATHR_FROM_ACF_LUARP ~= 0) then command_once ("laminar/B738/autopilot/autothrottle_arm_toggle") end
+end
+
 
 function LUARP_COMMAND_SPD_TOGGLE()
 	command_once ("laminar/B738/autopilot/speed_press") -- custom zibo commands 
@@ -204,20 +233,55 @@ function LUARP_COMMAND_VS_TOGGLE()
 end
 
 function LUARP_COMMAND_VS_UP()
-	VS_VAL_FROM_ACF_LUARP = VS_VAL_FROM_ACF_LUARP + 100
+	command_once ("sim/autopilot/vertical_speed_up")
 end 
 
 function LUARP_COMMAND_VS_DN()	
-	VS_VAL_FROM_ACF_LUARP = VS_VAL_FROM_ACF_LUARP - 100
+	command_once ("sim/autopilot/vertical_speed_down")
 end 
 
 function LUARP_COMMAND_CRS_UP()
-	CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP + 1
+	command_once ("laminar/B738/autopilot/course_pilot_up")
+	command_once ("laminar/B738/autopilot/course_pilot_up")
 end 
 
 function LUARP_COMMAND_CRS_DN() 
-	CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP - 1
+	command_once ("laminar/B738/autopilot/course_pilot_dn")
+	command_once ("laminar/B738/autopilot/course_pilot_dn")
 end 
+
+
+dataref("zibo_ias_show_for_ias_luarp", "laminar/B738/autopilot/show_ias", "readonly")
+function zibo_custom_refresh()
+
+	if zibo_ias_show_for_ias_luarp == 1 then LUARP_SPD_STATUS[0] = 0 else LUARP_SPD_STATUS[0] = 1 end
+
+
+	if VS_VAL_FROM_ACF_LUARP == 0 then 
+		LUARP_VS_STATUS[0] = 1 
+	else 
+		LUARP_VS_STATUS[0] = 0 
+	end
+end
+
+do_every_frame("zibo_custom_refresh()")
+
+
+-- tcas stuff
+
+function LUARP_COMMAND_TCAS_STBY()
+	command_once ("laminar/B738/knob/transponder_stby")
+end
+
+function LUARP_COMMAND_TCAS_XPDR()
+	command_once ("laminar/B738/knob/transponder_alton")
+end
+function LUARP_COMMAND_TCAS_TA()
+	command_once ("laminar/B738/knob/transponder_ta")
+end
+function LUARP_COMMAND_TCAS_TARA()
+	command_once ("laminar/B738/knob/transponder_tara")
+end
 
 
 
@@ -545,6 +609,282 @@ end
 function LUARP_COMMAND_TCAS_TARA()
 	TOLISS_TCAS_POS = 4
 end
+
+
+
+
+------ Felis B742
+
+elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_ON_SW")~= nil then 
+	-- AP buttons
+	-- zibo doesn't let you write most datarefs
+	dataref("AP1_FROM_ACF_LUARP_eng", "B742/AP_panel/AP_engage_A", "writeable")  
+	dataref("AP2_FROM_ACF_LUARP_eng", "B742/AP_panel/AP_engage_B", "writeable") 
+
+	function check_ap_b742()
+		if AP1_FROM_ACF_LUARP_eng == 2 then AP1_FROM_ACF_LUARPJ = 1 else AP1_FROM_ACF_LUARP_eng = 0 end
+		if AP2_FROM_ACF_LUARP_eng == 2 then AP2_FROM_ACF_LUARPJ = 1 else AP2_FROM_ACF_LUARP_eng = 0 end
+	end
+	do_every_frame("check_ap_b742()")
+
+	
+	-- Throttle and speed
+	dataref("ATHR_FROM_ACF_LUARP", "B742/AP_panel/AT_ON_SW", "readonly") -- INOP
+	
+	-- dataref("N1_FROM_ACF_LUARP", "laminar/B738/autopilot/n1_status", "readonly") -- INOP
+	
+	
+	-- @TODO:
+	--dataref("SPD_FROM_ACF_LUARP", "laminar/B738/autopilot/speed_status1", "readonly")
+	
+	dataref("SPEED_VAL_FROM_ACF_LUARP", "B742/AP_panel/AT_spd_set_rotary", "writeable")
+	
+	-- Lateral navigation
+	dataref("felis_nav_sel", "B742/AP_panel/AP_nav_mode_sel", "writeable")
+
+
+	function felis_nav_refresh()
+
+		if (felis_nav_sel == 0) then
+			HDG_FROM_ACF_LUARP = 0
+			APP_FROM_ACF_LUARP = 0
+			VORL_FROM_ACF_LUARP = 0
+			LNAV_FROM_ACF_LUARP = 1
+
+		elseif (felis_nav_sel == 1) then
+			HDG_FROM_ACF_LUARP = 1
+			APP_FROM_ACF_LUARP = 0
+			VORL_FROM_ACF_LUARP = 0
+			LNAV_FROM_ACF_LUARP = 0
+
+		elseif (felis_nav_sel == 2) then
+			HDG_FROM_ACF_LUARP = 0
+			APP_FROM_ACF_LUARP = 0
+			VORL_FROM_ACF_LUARP = 1
+			LNAV_FROM_ACF_LUARP = 0
+		
+		elseif (felis_nav_sel == 4) then
+			HDG_FROM_ACF_LUARP = 0
+			APP_FROM_ACF_LUARP = 1
+			VORL_FROM_ACF_LUARP = 0
+			LNAV_FROM_ACF_LUARP = 0
+		end
+
+
+	end
+	do_every_frame("felis_nav_refresh()")
+
+	
+	
+
+
+
+	dataref("HDG_VAL_FROM_ACF_LUARP", "B742/AP_panel/heading_set", "writeable")
+	
+	dataref("felis_vert_sel", "B742/AP_panel/AP_pitch_mode_sel", "writeable")
+	dataref("felis_altmode_sel", "B742/AP_panel/altitude_mode_switch", "writeable")
+
+
+
+	function felis_vert_refresh()
+
+		if (felis_vert_sel == 0) then
+
+			VNAV_FROM_ACF_LUARP = 0
+			SPD_FROM_ACF_LUARP = 0
+			VS_FROM_ACF_LUARP = 0 --everything off 
+
+		elseif (felis_vert_sel == 1) then
+			VNAV_FROM_ACF_LUARP = 0
+			SPD_FROM_ACF_LUARP = 0
+			VS_FROM_ACF_LUARP = 1
+
+		elseif (felis_vert_sel == 2) then
+			VNAV_FROM_ACF_LUARP = 0
+			SPD_FROM_ACF_LUARP = 1 -- ias hold
+			VS_FROM_ACF_LUARP = 0 
+		
+		elseif (felis_vert_sel == 4) then
+			VNAV_FROM_ACF_LUARP = 1 --vnav to mach hold 
+			SPD_FROM_ACF_LUARP = 0
+			VS_FROM_ACF_LUARP = 0 
+		end
+
+
+		-- alt switch
+
+		if (felis_altmode_sel == 1) then
+
+			ALTHLD_FROM_ACF_LUARP = 1
+			LVLCHG_FROM_ACF_LUARP = 0
+
+		elseif (felis_altmode_sel == -1) then
+			ALTHLD_FROM_ACF_LUARP = 0
+			LVLCHG_FROM_ACF_LUARP = 1
+
+		else 
+			ALTHLD_FROM_ACF_LUARP = 0
+			LVLCHG_FROM_ACF_LUARP = 0
+
+		end
+
+		
+
+
+	end
+	do_every_frame("felis_vert_refresh()")
+	
+	dataref("ALT_VAL_FROM_ACF_LUARP", "B742/AP_panel/altitude_set", "writeable")
+	
+
+
+	
+	dataref("VS_FROM_ACF_LUARP_div", "B742/AP_panel/VS_rotary", "writeable")
+
+	function felis_vs_math()
+		VS_VAL_FROM_ACF_LUARP = VS_FROM_ACF_LUARP_div * 1000
+	end
+	do_every_frame("felis_vs_math()")
+	
+	-- CRS
+	dataref ("CRS_VAL_FROM_ACF_LUARP", "B742/AP_panel/course_1_set", "writeable")
+	
+	-- what happens when actuating the custom commands
+	
+	
+	function LUARP_COMMAND_AP1_ON()
+		if (AP1_FROM_ACF_LUARP == 0) then AP1_FROM_ACF_LUARP_eng = 2 end
+	end
+	
+	function LUARP_COMMAND_AP1_OFF()
+		if (AP1_FROM_ACF_LUARP == 1) then AP1_FROM_ACF_LUARP_eng = 0 end
+	
+	end
+	
+	function LUARP_COMMAND_AP2_ON()
+		if (AP2_FROM_ACF_LUARP == 0) then AP2_FROM_ACF_LUARP_eng = 1 end
+	end
+	
+	function LUARP_COMMAND_AP2_OFF()
+		if (AP2_FROM_ACF_LUARP == 1) then AP2_FROM_ACF_LUARP_eng = 0 end
+	
+	end
+	
+	
+	function LUARP_COMMAND_ATHR_ON()
+		if (ATHR_FROM_ACF_LUARP == 0) then ATHR_FROM_ACF_LUARP = 1 end
+	end
+	
+	function LUARP_COMMAND_ATHR_OFF()
+		if (ATHR_FROM_ACF_LUARP ~= 0) then ATHR_FROM_ACF_LUARP = 0 end
+	end
+	
+	
+	function LUARP_COMMAND_SPD_TOGGLE()
+		felis_vert_sel = 2 
+	end 
+	
+	function LUARP_COMMAND_SPEED_UP()
+		SPEED_VAL_FROM_ACF_LUARP = SPEED_VAL_FROM_ACF_LUARP + 1
+	end 
+	
+	function LUARP_COMMAND_SPEED_DN()
+		SPEED_VAL_FROM_ACF_LUARP = SPEED_VAL_FROM_ACF_LUARP - 1
+	end 
+	
+	function LUARP_COMMAND_LNAV_TOGGLE()
+		felis_nav_sel = 0
+	end 
+	
+	function LUARP_COMMAND_HDG_TOGGLE()
+		felis_nav_sel = 1
+	end
+	
+	function LUARP_COMMAND_APP_TOGGLE()
+		felis_nav_sel = 4
+	end 
+	
+	function LUARP_COMMAND_VORL_TOGGLE()
+		felis_nav_sel = 2
+	end
+	
+	function LUARP_COMMAND_HDG_UP() 
+		HDG_VAL_FROM_ACF_LUARP = HDG_VAL_FROM_ACF_LUARP + 1
+	end 
+	
+	function LUARP_COMMAND_HDG_DN() 
+		HDG_VAL_FROM_ACF_LUARP = HDG_VAL_FROM_ACF_LUARP - 1
+	end 
+	
+	function LUARP_COMMAND_LVLCHG_TOGGLE()
+		felis_altmode_sel = -1
+	end 
+	
+	function LUARP_COMMAND_ALTHLD_TOGGLE()
+		felis_altmode_sel = 1
+	end 
+	
+	function LUARP_COMMAND_VNAV_TOGGLE()
+		felis_vert_sel = 3
+	end 
+	
+	function LUARP_COMMAND_ALT_UP() -- trying the alt increment chg. Not a nice way to do it 
+		ALT_VAL_FROM_ACF_LUARP = ALT_VAL_FROM_ACF_LUARP + 1
+	
+	end 
+	
+	
+	function LUARP_COMMAND_ALT_DN()
+		ALT_VAL_FROM_ACF_LUARP = ALT_VAL_FROM_ACF_LUARP - 1
+	end 
+
+
+	
+	function LUARP_COMMAND_VS_TOGGLE() 
+		felis_vert_sel = 1
+	end
+
+	
+	function LUARP_COMMAND_VS_UP()
+		VS_FROM_ACF_LUARP_div = VS_FROM_ACF_LUARP_div + 0.5
+	end 
+	
+	function LUARP_COMMAND_VS_DN()	
+		VS_FROM_ACF_LUARP_div = VS_FROM_ACF_LUARP_div - 0.5
+	end 
+	
+	function LUARP_COMMAND_CRS_UP()
+		CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP + 1
+	end 
+	
+	function LUARP_COMMAND_CRS_DN() 
+		CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP - 1
+	end 
+	
+		
+	
+
+	dataref("felis_tcas_sel", "B742/TCAS/main_mode_sel", "writeable")
+	-- tcas stuff
+	
+	function LUARP_COMMAND_TCAS_STBY()
+		felis_tcas_sel = 0
+	end
+	
+	function LUARP_COMMAND_TCAS_XPDR()
+		felis_tcas_sel = 1
+	end
+	function LUARP_COMMAND_TCAS_TA()
+		felis_tcas_sel = 2
+	end
+	function LUARP_COMMAND_TCAS_TARA()
+		felis_tcas_sel = 3
+	end
+
+
+
+
+
 
 
 
@@ -886,37 +1226,37 @@ end
 function Refresh_output()-- Outputs, so LEDs aka lights on the buttons and 7 segment displays
 -- set the outputs aka led status to whatever the plane's dataref says
 -- lateral navigation
-	LUARP_IS_HDG_ON[0] = HDG_FROM_ACF_LUARP
-	LUARP_IS_APP_ON[0] = APP_FROM_ACF_LUARP 
-	LUARP_IS_VORL_ON[0] = VORL_FROM_ACF_LUARP
-	LUARP_IS_LNAV_ON[0] = LNAV_FROM_ACF_LUARP
+	LUARP_IS_HDG_ON[0] = math.floor(HDG_FROM_ACF_LUARP)
+	LUARP_IS_APP_ON[0] = math.floor(APP_FROM_ACF_LUARP )
+	LUARP_IS_VORL_ON[0] = math.floor(VORL_FROM_ACF_LUARP)
+	LUARP_IS_LNAV_ON[0] = math.floor(LNAV_FROM_ACF_LUARP)
 	
-	LUARP_DRAWN_HDG[0] = HDG_VAL_FROM_ACF_LUARP 
+	LUARP_DRAWN_HDG[0] = math.floor(HDG_VAL_FROM_ACF_LUARP)
 
 	
-	LUARP_IS_SPD_ON[0] = SPD_FROM_ACF_LUARP
+	LUARP_IS_SPD_ON[0] = math.floor(SPD_FROM_ACF_LUARP)
 	--LUARP_IS_N1_ON[0] = N1_FROM_ACF_LUARP -- INOP
 	
-	LUARP_DRAWN_SPEED[0] = SPEED_VAL_FROM_ACF_LUARP 
+	LUARP_DRAWN_SPEED[0] = math.floor(SPEED_VAL_FROM_ACF_LUARP )
 
 	
-	LUARP_IS_ALTHLD_ON[0] = ALTHLD_FROM_ACF_LUARP
-	LUARP_IS_LVLCHG_ON[0] = LVLCHG_FROM_ACF_LUARP
-	LUARP_IS_VNAV_ON[0] = VNAV_FROM_ACF_LUARP
+	LUARP_IS_ALTHLD_ON[0] = math.floor(ALTHLD_FROM_ACF_LUARP)
+	LUARP_IS_LVLCHG_ON[0] = math.floor(LVLCHG_FROM_ACF_LUARP)
+	LUARP_IS_VNAV_ON[0] = math.floor(VNAV_FROM_ACF_LUARP)
 
-	LUARP_DRAWN_ALT[0] = ALT_VAL_FROM_ACF_LUARP
+	LUARP_DRAWN_ALT[0] = math.floor(ALT_VAL_FROM_ACF_LUARP)
 
 -- VS
-	if PLANE_ICAO == "B738" and XPLMFindDataRef ("laminar/B738/autopilot/vvi_dial_show")~= nil then -- check it exists
-		if luarp_zibo_show_vs == 1 then LUARP_IS_VS_ON[0] = VS_FROM_ACF_LUARP else LUARP_IS_VS_ON[0] = "" end -- show blank if vs_show is not 1 
-	else 
-		LUARP_IS_VS_ON[0] = VS_FROM_ACF_LUARP
-	end --with zibo, set the vs value to blank if vs mode not on
+	--if PLANE_ICAO == "B738" and XPLMFindDataRef ("laminar/B738/autopilot/vvi_dial_show")~= nil then -- check it exists
+	--	if luarp_zibo_show_vs == 1 then LUARP_IS_VS_ON[0] = VS_FROM_ACF_LUARP else LUARP_IS_VS_ON[0] = "" end -- show blank if vs_show is not 1 
+	--else 
+	LUARP_IS_VS_ON[0] = math.floor(VS_FROM_ACF_LUARP)
+	--end --with zibo, set the vs value to blank if vs mode not on
 
-	LUARP_DRAWN_VS[0] = (VS_VAL_FROM_ACF_LUARP / 100) -- no space on my 7seg
+	LUARP_DRAWN_VS[0] = math.floor((VS_VAL_FROM_ACF_LUARP / 100)) -- no space on my 7seg
 	
 -- CRS
-	LUARP_DRAWN_CRS[0] = CRS_VAL_FROM_ACF_LUARP 
+	LUARP_DRAWN_CRS[0] = math.floor(CRS_VAL_FROM_ACF_LUARP) 
 
 
 end
