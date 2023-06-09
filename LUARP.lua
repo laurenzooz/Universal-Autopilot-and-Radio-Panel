@@ -49,7 +49,8 @@ LUARP_DRAWN_VS = create_dataref_table("FlyWithLua/LUARP_DRAWN_VS", "Float")
 
 -- CRS
 LUARP_DRAWN_CRS = create_dataref_table("FlyWithLua/LUARP_DRAWN_CRS", "Float")
-
+LUARP_DRAWN_CRS2 = create_dataref_table("FlyWithLua/LUARP_DRAWN_CRS2", "Float")
+LUARP_DRAWN_CRS2[0] = 0
 
 
 --- These are to indicate certain status of the thing to be drawn.
@@ -72,6 +73,10 @@ LUARP_COM1_STBY_STATUS = create_dataref_table("FlyWithLua/LUARP_COM1_STBY_STATUS
 LUARP_NAV1_ACTV_STATUS = create_dataref_table("FlyWithLua/LUARP_NAV1_ACTV_STATUS", "Int") 
 LUARP_NAV1_STBY_STATUS = create_dataref_table("FlyWithLua/LUARP_NAV1_STBY_STATUS", "Int") 
 
+LUARP_COM_SW = create_dataref_table("FlyWithLua/LUARP_COM_SW", "Int") 
+LUARP_NAV_SW = create_dataref_table("FlyWithLua/LUARP_NAV_SW", "Int") 
+
+
 
 
 LUARP_SPD_STATUS[0] = 0
@@ -83,6 +88,9 @@ LUARP_CRS_STATUS[0] = 0
 LUARP_COM1_STBY_STATUS[0] = 0
 LUARP_NAV1_ACTV_STATUS[0] = 0
 LUARP_NAV1_STBY_STATUS[0] = 0
+
+LUARP_COM_SW[0] = 0
+LUARP_NAV_SW[0] = 0
 
 -- everything set to 0 (value drawn normally) by default
 
@@ -138,6 +146,7 @@ dataref("luarp_zibo_show_vs", "laminar/B738/autopilot/vvi_dial_show", "readonly"
 
 -- CRS
 dataref ("CRS_VAL_FROM_ACF_LUARP", "laminar/B738/autopilot/course_pilot", "writeable")
+dataref ("CRS2_VAL_FROM_ACF_LUARP", "laminar/B738/autopilot/course_copilot", "writeable")
 
 -- what happens when actuating the custom commands
 
@@ -241,15 +250,20 @@ function LUARP_COMMAND_VS_DN()
 end 
 
 function LUARP_COMMAND_CRS_UP()
-	command_once ("laminar/B738/autopilot/course_pilot_up")
-	command_once ("laminar/B738/autopilot/course_pilot_up")
+	CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP + 1
 end 
 
 function LUARP_COMMAND_CRS_DN() 
-	command_once ("laminar/B738/autopilot/course_pilot_dn")
-	command_once ("laminar/B738/autopilot/course_pilot_dn")
+	CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP - 1
 end 
 
+function LUARP_COMMAND_CRS2_UP()
+	CRS2_VAL_FROM_ACF_LUARP = CRS2_VAL_FROM_ACF_LUARP + 1
+end 
+
+function LUARP_COMMAND_CRS2_DN() 
+	CRS2_VAL_FROM_ACF_LUARP = CRS2_VAL_FROM_ACF_LUARP - 1
+end 
 
 dataref("zibo_ias_show_for_ias_luarp", "laminar/B738/autopilot/show_ias", "readonly")
 function zibo_custom_refresh()
@@ -569,11 +583,11 @@ VS_VAL_FROM_ACF_LUARP = VS_VAL_FROM_ACF_LUARP - 100
 end 
 
 function LUARP_COMMAND_CRS_UP()
-	CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP + 1
+	--CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP + 1
 end 
 
 function LUARP_COMMAND_CRS_DN() 
-	CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP - 1
+	--CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP - 1
 end 
 
 
@@ -616,6 +630,8 @@ end
 ------ Felis B742
 
 elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_on_sw")~= nil then 
+
+	LUARP_NAV1_STBY_STATUS[0] = 1 -- no stby thingy for nav1
 	-- AP buttons
 	-- zibo doesn't let you write most datarefs
 	dataref("AP1_FROM_ACF_LUARP_eng", "B742/AP_panel/AP_engage_A", "writeable")  
@@ -748,6 +764,7 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_on_sw")~= nil 
 	
 	-- CRS
 	dataref ("CRS_VAL_FROM_ACF_LUARP", "B742/AP_panel/course_1_set", "writeable")
+	dataref ("CRS2_VAL_FROM_ACF_LUARP", "B742/AP_panel/course_2_set", "writeable")
 	
 	-- what happens when actuating the custom commands
 	
@@ -866,6 +883,14 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_on_sw")~= nil 
 	function LUARP_COMMAND_CRS_DN() 
 		CRS_VAL_FROM_ACF_LUARP = CRS_VAL_FROM_ACF_LUARP - 1
 	end 
+
+	function LUARP_COMMAND_CRS2_UP()
+		CRS2_VAL_FROM_ACF_LUARP = CRS2_VAL_FROM_ACF_LUARP + 1
+	end 
+	
+	function LUARP_COMMAND_CRS2_DN() 
+		CRS2_VAL_FROM_ACF_LUARP = CRS2_VAL_FROM_ACF_LUARP - 1
+	end 
 	
 		
 	
@@ -881,10 +906,10 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_on_sw")~= nil 
 		felis_tcas_sel = 3
 	end
 	function LUARP_COMMAND_TCAS_TA()
-		felis_tcas_sel = 1
+		felis_tcas_sel = 2
 	end
 	function LUARP_COMMAND_TCAS_TARA()
-		felis_tcas_sel = 2
+		felis_tcas_sel = 1
 	end
 
 
@@ -1263,6 +1288,7 @@ function Refresh_output()-- Outputs, so LEDs aka lights on the buttons and 7 seg
 	
 -- CRS
 	LUARP_DRAWN_CRS[0] = math.floor(CRS_VAL_FROM_ACF_LUARP) 
+	LUARP_DRAWN_CRS2[0] = math.floor(CRS2_VAL_FROM_ACF_LUARP) 
 
 
 end
@@ -1330,6 +1356,9 @@ create_command ("FlyWithLua/LUARP_COMMAND_VS_DN", "LUARP VS DN", "LUARP_COMMAND_
 create_command ("FlyWithLua/LUARP_COMMAND_CRS_UP", "LUARP CRS UP", "LUARP_COMMAND_CRS_UP()", "", "") 
 create_command ("FlyWithLua/LUARP_COMMAND_CRS_DN", "LUARP CRS DN", "LUARP_COMMAND_CRS_DN()", "", "")
 
+-- CRS 2
+create_command ("FlyWithLua/LUARP_COMMAND_CRS2_UP", "LUARP CRS2 UP", "LUARP_COMMAND_CRS2_UP()", "", "") 
+create_command ("FlyWithLua/LUARP_COMMAND_CRS2_DN", "LUARP CRS2 DN", "LUARP_COMMAND_CRS2_DN()", "", "")
 
 
 
@@ -1340,6 +1369,30 @@ create_command ("FlyWithLua/LUARP_COMMAND_TCAS_XPDR", "LUARP TCAS XPDR", "LUARP_
 create_command ("FlyWithLua/LUARP_COMMAND_TCAS_TA", "LUARP TCAS TA", "LUARP_COMMAND_TCAS_TA()", "", "") 
 create_command ("FlyWithLua/LUARP_COMMAND_TCAS_TARA", "LUARP TCAS TA RA", "LUARP_COMMAND_TCAS_TARA()", "", "") 
 
+
+function LUARP_COM_SW_1()
+	LUARP_COM_SW[0] = 0
+end
+
+function LUARP_COM_SW_2()
+	LUARP_COM_SW[0] = 1
+end
+
+function LUARP_NAV_SW_1()
+	LUARP_NAV_SW[0] = 0
+end
+
+function LUARP_NAV_SW_2()
+	LUARP_NAV_SW[0] = 1
+end
+
+
+
+create_command ("FlyWithLua/LUARP_COM_SW_1", "LUARP com 1", "LUARP_COM_SW_1()", "", "")
+create_command ("FlyWithLua/LUARP_COM_SW_2", "LUARP com 2", "LUARP_COM_SW_2()", "", "")
+
+create_command ("FlyWithLua/LUARP_NAV_SW_1", "LUARP nav 1", "LUARP_NAV_SW_1()", "", "")
+create_command ("FlyWithLua/LUARP_NAV_SW_2", "LUARP nav 2", "LUARP_NAV_SW_2()", "", "")
 
 
 
