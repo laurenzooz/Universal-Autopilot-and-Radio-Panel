@@ -115,7 +115,7 @@ dataref("AP1_FROM_ACF_LUARP", "laminar/B738/autopilot/cmd_a_status", "readonly")
 dataref("AP2_FROM_ACF_LUARP", "laminar/B738/autopilot/cmd_b_status", "readonly")  -- INOP
 
 -- Throttle and speed
-dataref("ATHR_FROM_ACF_LUARP", "laminar/B738/autopilot/autothrottle_status", "readonly") -- INOP
+dataref("ATHR_FROM_ACF_LUARP", "laminar/B738/autopilot/autothrottle_status1", "readonly") -- INOP
 
 -- dataref("N1_FROM_ACF_LUARP", "laminar/B738/autopilot/n1_status", "readonly") -- INOP
 dataref("SPD_FROM_ACF_LUARP", "laminar/B738/autopilot/speed_status1", "readonly")
