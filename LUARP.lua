@@ -53,6 +53,7 @@ LUARP_DRAWN_CRS2 = create_dataref_table("FlyWithLua/LUARP_DRAWN_CRS2", "Float")
 LUARP_DRAWN_CRS2[0] = 0
 
 
+
 --- These are to indicate certain status of the thing to be drawn.
 -- e.g we can choose to draw dashes instead of the value (like on airbus managed mode)
 
@@ -242,11 +243,11 @@ function LUARP_COMMAND_VS_TOGGLE()
 end
 
 function LUARP_COMMAND_VS_UP()
-	command_once ("sim/autopilot/vertical_speed_up")
+	VS_VAL_FROM_ACF_LUARP = VS_VAL_FROM_ACF_LUARP + 100
 end 
 
 function LUARP_COMMAND_VS_DN()	
-	command_once ("sim/autopilot/vertical_speed_down")
+	VS_VAL_FROM_ACF_LUARP = VS_VAL_FROM_ACF_LUARP - 100
 end 
 
 function LUARP_COMMAND_CRS_UP()
@@ -306,6 +307,8 @@ elseif PLANE_ICAO == "A319" and XPLMFindDataRef == "AirbusFBW/SPDmanaged" ~= nil
 LUARP_CRS_STATUS[0] = 1
 LUARP_NAV1_ACTV_STATUS[0] = 1
 LUARP_NAV1_STBY_STATUS[0] = 1
+
+CRS2_VAL_FROM_ACF_LUARP = 0
 
 
 -- configs per default datarefs. Inputs are writable, outputs (leds).
@@ -425,46 +428,76 @@ end
 
 do_every_frame ("Toliss_Custom_Refresh()")
 
+dataref("squawk_for_toliss_luarp_num", "sim/cockpit/radios/transponder_code", "readonly")
 
---[[
+local old_code = squawk_for_toliss_luarp_num -- save as old squawk, and detect if changed in the loop below.
+local toliss_sq_timer = 0
 function toliss_squawk()
 
-	---- For squawk
+	---- For squawk. Updating the xplane default dataref doesn't work on toliss.
 
-	dataref("squawk_for_toliss_luarp_num", "sim/cockpit/radios/transponder_code", "readonly")
-	local toliss_sq_luarp = tostring(squawk_for_toliss_luarp_num)
 
-	dataref("toliss_sq1", "AirbusFBW/XPDR1", "writeable")
-	dataref("toliss_sq2", "AirbusFBW/XPDR2", "writeable")
-	dataref("toliss_sq3", "AirbusFBW/XPDR3", "writeable")
-	dataref("toliss_sq4", "AirbusFBW/XPDR4", "writeable")
+	--- increase timer when detecting change, give 10 seconds to set the squawk (do_often is ran every second)
 
-	-- check if match 
-	if ((toliss_sq4 ~= tonumber(toliss_sq_luarp:byte(1)))) then
-		toliss_sq1 = 5
-		print("changed to 5")
-		--[[
-		-- last digit
-		if (string.len(toliss_sq_luarp) == 4) then
-			toliss_sq_1 = tonumber(toliss_sq_luarp.byte(4))
+	if old_code ~= squawk_for_toliss_luarp_num then 
+		
+		toliss_sq_timer = toliss_sq_timer + 1 -- increase timer		
+	end 
+
+	if (toliss_sq_timer > 3) then
+
+		-- get the numbers to be digits one by one 
+		local sq_str = tostring(squawk_for_toliss_luarp_num)
+
+
+		-- press the buttons to set the squawk, reset the timer
+		-- press the buttons depending on string length
+
+		local code_command_press = "AirbusFBW/ATCCodeKey"  -- this command + a number presses that number on keypad.
+		local leading_zeros = 0 -- if the code is eq 0012 (as in starts with zeros) press the zero button this many times first
+		-- the xp dataref ignores the leading zeros, eg code 0012 would be just 12.
+		
+		if (squawk_for_toliss_luarp_num == 0) then
+		leading_zeros = 4 -- all zeros
+		elseif (string.len(sq_str) == 3) then 
+			leading_zeros = 1
+		elseif (string.len(sq_str) == 2) then 
+			leading_zeros = 2
+		elseif (string.len(sq_str) == 1) then 
+			leading_zeros = 3
 		end
 
-		if (string.len(toliss_sq_luarp) >= 3) then
-			toliss_sq_2 = tonumber(toliss_sq_luarp.byte(3))
+		-- press the buttons, leading zeros first. 
+		for i = 1, leading_zeros do
+			print("leading zero set")
+			command_once("AirbusFBW/ATCCodeKey0")
 		end
 
-		if (string.len(toliss_sq_luarp) >= 2) then
-			toliss_sq_3 = tonumber(toliss_sq_luarp.byte(2))
-		end
+		-- then the rest of the buttons
+		-- get the digits
+		local num1 = string.sub(sq_str, 1, 1)
+		local num2 = string.sub(sq_str, 2, 2)
+		local num3 = string.sub(sq_str, 3, 3)
+		local num4 = string.sub(sq_str, 4, 4)
 
-		if (string.len(toliss_sq_luarp) >= 1) then
-			toliss_sq_4 = tonumber(toliss_sq_luarp.byte(1))
-		end
+		-- on codes less than 4 digits, the numX string remains empty -> trying to non existing command -> nothing happens
+		command_once(code_command_press .. num1)
+		command_once(code_command_press .. num2)
+		command_once(code_command_press .. num3)
+		command_once(code_command_press .. num4)
 
-	end
+
+		
+
+		old_code = squawk_for_toliss_luarp_num -- set the new code as old code, reset timer
+		toliss_sq_timer = 0
+
+	end 
+
+	
 end
---do_sometimes("toliss_squawk()")
-]]
+do_often("toliss_squawk()")
+
 
 dataref("toliss_ap1_status", "AirbusFBW/AP1Engage", "readonly")
 dataref("toliss_ap2_status", "AirbusFBW/AP2Engage", "readonly")
@@ -922,13 +955,14 @@ elseif PLANE_ICAO == "B742" and XPLMFindDataRef("B742/AP_panel/AT_on_sw")~= nil 
 
 -- INI
 
+--elseif PLANE_ICAO == "A306" then 
 elseif PLANE_ICAO == "A306" and XPLMFindDataRef("A300/MCDU/ap1_on")~= nil then 
 -- AP buttons
---dataref("AP1_FROM_ACF_LUARP", "laminar/B738/autopilot/cmd_a_status", "readonly")  -- INOP
---dataref("AP2_FROM_ACF_LUARP", "laminar/B738/autopilot/cmd_b_status", "writeable")  -- INOP
+dataref("AP1_FROM_ACF_LUARP", "A300/MCDU/ap1_on", "readonly")  -- INOP
+dataref("AP2_FROM_ACF_LUARP", "A300/MCDU/ap2_on", "readonly")  -- INOP
 
 -- Throttle and speed
--- Dataref("ATHR_FROM_ACF_LUARP", "laminar/B738/autopilot/autothrottle_arm_pos", "readonly") -- INOP
+Dataref("ATHR_FROM_ACF_LUARP", "A300/MCDU/autothrottle_armed", "readonly") -- INOP
 
 -- dataref("N1_FROM_ACF_LUARP", "laminar/B738/autopilot/n1_status", "readonly") -- INOP
 SPD_FROM_ACF_LUARP = 0  -- No separate speed mode. Speed can only be controlled when not in profile mode
@@ -965,6 +999,41 @@ dataref ("CRS_VAL_FROM_ACF_LUARP", "sim/cockpit2/radios/actuators/nav1_course_de
 -- what happens when actuating the custom commands
 -- bit awkward, dunno why works with other planes without the clock. But anyway, gonna have to make a timer for all the buttons 
 
+CRS2_VAL_FROM_ACF_LUARP = 0
+
+
+
+
+
+function LUARP_COMMAND_AP1_ON()
+	if (AP1_FROM_ACF_LUARP == 0) then command_once ("A300/MCDU/ap1_engage") end
+end
+
+function LUARP_COMMAND_AP1_OFF()
+	if (AP1_FROM_ACF_LUARP == 1) then command_once ("A300/MCDU/ap1_engage") end
+
+end
+
+function LUARP_COMMAND_AP2_ON()
+	if (AP2_FROM_ACF_LUARP == 0) then command_once ("A300/MCDU/ap2_engage") end
+end
+
+function LUARP_COMMAND_AP2_OFF()
+	if (AP2_FROM_ACF_LUARP == 1) then command_once ("A300/MCDU/ap2_engage") end
+
+end
+
+
+function LUARP_COMMAND_ATHR_ON()
+	if (ATHR_FROM_ACF_LUARP == 0) then command_once ("A300/MCDU/autothrottle_toggle") end
+end
+
+function LUARP_COMMAND_ATHR_OFF()
+	if (ATHR_FROM_ACF_LUARP ~= 0) then command_once ("A300/MCDU/autothrottle_toggle") end
+end
+
+
+
 
 function LUARP_COMMAND_SPD_TOGGLE()
 	-- not a thing in a300
@@ -994,7 +1063,7 @@ function LUARP_COMMAND_HDG_TOGGLE()
 	end 
 end
 
-local cooldown_for_APP
+local cooldown_for_APP = os.clock()
 function LUARP_COMMAND_APP_TOGGLE()
 	if os.clock() > cooldown_for_APP + 0.1 then 
 		command_once ("A300/MCDU/approach_mode")
@@ -1018,11 +1087,11 @@ function LUARP_COMMAND_HDG_DN()
 	command_once ("A300/MCDU/heading_down")
 end 
 
-local cooldown_for_LVLVHG = os.clock()
+local cooldown_for_LVLCHG = os.clock()
 function LUARP_COMMAND_LVLCHG_TOGGLE()
 	if os.clock() > cooldown_for_LVLCHG + 0.1 then 
 		command_once ("A300/MCDU/level_change")
-		cooldown_for_LVLVHG = os.clock()
+		cooldown_for_LVLCHG = os.clock()
 	end 
 end 
 
