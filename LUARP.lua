@@ -1390,22 +1390,27 @@ function LUARP_ALT_INCREMENT_CHG()
 end 
 
 
-dataref("INI_TCAS_MODE_LUARP", "A300/RMP/tcas_mode", "writeable")
+dataref("INI_TCAS_MODE_LUARP", "A300/RMP/tcas_mode", "writeable") --  other is traditional, other is the cpdlc panel thingy
+dataref("INI_TCAS_MODE_LUARP2", "A300/TCAS/tcas_mode_pedestal", "writeable")
 
 function LUARP_COMMAND_TCAS_STBY()
-	INI_TCAS_MODE_LUARP = 0
+	INI_TCAS_MODE_LUARP  = 0
+	INI_TCAS_MODE_LUARP2 = 1
 end
 
 function LUARP_COMMAND_TCAS_TA()
-	INI_TCAS_MODE_LUARP = 2
+	INI_TCAS_MODE_LUARP  = 2
+	INI_TCAS_MODE_LUARP2 = 4
 end
 
 function LUARP_COMMAND_TCAS_TARA()
-	INI_TCAS_MODE_LUARP = 1
+	INI_TCAS_MODE_LUARP  = 1
+	INI_TCAS_MODE_LUARP2 = 3
 end
 
 function LUARP_COMMAND_TCAS_XPDR()
-	INI_TCAS_MODE_LUARP = 3
+	INI_TCAS_MODE_LUARP  = 3
+	INI_TCAS_MODE_LUARP2 = 2
 end
 
 
