@@ -65,6 +65,8 @@ LUARP_SPD_STATUS = create_dataref_table("FlyWithLua/LUARP_SPD_STATUS", "Int")
 LUARP_HDG_STATUS = create_dataref_table("FlyWithLua/LUARP_HDG_STATUS", "Int") 
 LUARP_ALT_STATUS = create_dataref_table("FlyWithLua/LUARP_ALT_STATUS", "Int") 
 LUARP_VS_STATUS =  create_dataref_table("FlyWithLua/LUARP_VS_STATUS", "Int") 
+LUARP_INI_A300 =   create_dataref_table("FlyWithLua/LUARP_INI_A300", "Int") 
+
 LUARP_CRS_STATUS = create_dataref_table("FlyWithLua/LUARP_CRS_STATUS", "Int") 
 
 
@@ -80,11 +82,15 @@ LUARP_NAV_SW = create_dataref_table("FlyWithLua/LUARP_NAV_SW", "Int")
 
 
 
+
+
 LUARP_SPD_STATUS[0] = 0
 LUARP_HDG_STATUS[0] = 0
 LUARP_ALT_STATUS[0] = 0
 LUARP_VS_STATUS[0]  = 0
 LUARP_CRS_STATUS[0] = 0
+
+LUARP_INI_A300[0] = 0
 
 LUARP_COM1_STBY_STATUS[0] = 0
 LUARP_NAV1_ACTV_STATUS[0] = 0
@@ -300,6 +306,227 @@ end
 
 
 
+-- ROTATE
+elseif PLANE_ICAO == "MD88" then
+
+LUARP_NAV1_STBY_STATUS[0] = 1
+
+
+		-- AP buttons
+		-- zibo doesn't let you write most datarefs
+		dataref("AP1_FROM_ACF_LUARP", "Rotate/md80/autopilot/ap_toggle", "writeable")  
+		AP2_FROM_ACF_LUARP = 0
+		
+		-- Throttle and speed
+		dataref("ATHR_FROM_ACF_LUARP", "Rotate/md80/autopilot/at_switch", "readonly") 
+		
+		-- dataref("N1_FROM_ACF_LUARP", "laminar/B738/autopilot/n1_status", "readonly") -- INOP
+		--dataref("SPD_FROM_ACF_LUARP", "laminar/B738/autopilot/speed_status1", "readonly")
+		SPD_FROM_ACF_LUARP = 0
+
+		dataref("SPEED_VAL_FROM_ACF_LUARP", "Rotate/md80/autopilot/at_target_speed", "readonly")
+		
+		-- Lateral navigation
+		--dataref("HDG_FROM_ACF_LUARP", "Rotate/md80/autopilot/hdg_mode", "readonly")
+		--dataref("APP_FROM_ACF_LUARP", "laminar/B738/autopilot/app_status", "readonly")
+		--dataref("VORL_FROM_ACF_LUARP", "laminar/B738/autopilot/vorloc_status", "readonly")
+		--dataref("LNAV_FROM_ACF_LUARP", "Rotate/md80/autopilot/hnav_mode", "readonly")
+		HDG_FROM_ACF_LUARP = 0
+		APP_FROM_ACF_LUARP = 0 
+		VORL_FROM_ACF_LUARP = 0
+		LNAV_FROM_ACF_LUARP = 0
+
+		dataref("HDG_VAL_FROM_ACF_LUARP", "Rotate/md80/autopilot/hdg_sel_deg_pilot", "readonly")
+		
+		-- all leds off with md80 (for now at least) 
+		-- in the real thing the buttons arent lit anyway, the status is shown on next to the pfd
+		-- Vertical Navigation
+		--dataref("MD80_VNAV_MODE", "Rotate/md80/autopilot/vnav_mode", "readonly")
+		VNAV_FROM_ACF_LUARP = 0
+		ALTHLD_FROM_ACF_LUARP = 0
+		LVLCHG_FROM_ACF_LUARP = 0
+		VS_FROM_ACF_LUARP = 0
+		--[[
+		function md80_vnav_refresh()
+		
+
+			if MD80_VNAV_MODE == 1 then
+				VNAV_FROM_ACF_LUARP = 0
+				ALTHLD_FROM_ACF_LUARP = 0
+				LVLCHG_FROM_ACF_LUARP = 0
+				VS_FROM_ACF_LUARP = 1
+
+			elseif MD80_VNAV_MODE == 2 or MD80_VNAV_MODE == 3 then
+				VNAV_FROM_ACF_LUARP = 0
+				ALTHLD_FROM_ACF_LUARP = 0
+				LVLCHG_FROM_ACF_LUARP = 1 -- IAS HOLD
+				VS_FROM_ACF_LUARP = 0
+
+			elseif MD80_VNAV_MODE == 4 then
+				VNAV_FROM_ACF_LUARP = 0
+				ALTHLD_FROM_ACF_LUARP = 1
+				LVLCHG_FROM_ACF_LUARP = 0
+				VS_FROM_ACF_LUARP = 0
+			
+			else
+				VNAV_FROM_ACF_LUARP = 0
+				ALTHLD_FROM_ACF_LUARP = 0
+				LVLCHG_FROM_ACF_LUARP = 0
+				VS_FROM_ACF_LUARP = 0
+			end 
+		end
+		do_every_frame("md80_vnav_refresh()")
+]]
+		
+		
+		dataref("maddog_fl", "Rotate/md80/autopilot/alt_sel_ft", "readonly")
+		function alt_val_refresh_maddog()
+			ALT_VAL_FROM_ACF_LUARP = maddog_fl * 100
+		end
+		do_every_frame("alt_val_refresh_maddog()")
+		
+		-- VS
+		
+		dataref("VS_VAL_FROM_ACF_LUARP", "Rotate/md80/autopilot/pcw_readout", "readonly")
+		
+		-- CRS
+		dataref ("CRS_VAL_FROM_ACF_LUARP", "Rotate/md80/autopilot/nav1_crs", "readonly")
+		CRS2_VAL_FROM_ACF_LUARP = 0
+
+		-- what happens when actuating the custom commands
+		
+		
+		function LUARP_COMMAND_AP1_ON()
+			if (AP1_FROM_ACF_LUARP ~= 2) then AP1_FROM_ACF_LUARP = 2 end
+		end
+		
+		function LUARP_COMMAND_AP1_OFF()
+			if (AP1_FROM_ACF_LUARP == 2) then AP1_FROM_ACF_LUARP = 1 end
+		
+		end
+		
+		function LUARP_COMMAND_AP2_ON()
+		end
+		
+		function LUARP_COMMAND_AP2_OFF()		
+		end
+		
+		
+		function LUARP_COMMAND_ATHR_ON()
+			if (ATHR_FROM_ACF_LUARP == 0) then command_once ("Rotate/md80/autopilot/at_switch_on") end
+		end
+		
+		function LUARP_COMMAND_ATHR_OFF()
+			if (ATHR_FROM_ACF_LUARP ~= 0) then command_once ("Rotate/md80/autopilot/at_switch_off") end
+		end
+		
+		
+		function LUARP_COMMAND_SPD_TOGGLE()
+			command_once ("Rotate/md80/autopilot/spd_sel") -- custom zibo commands 
+		end 
+		
+		function LUARP_COMMAND_SPEED_UP()
+			command_once ("Rotate/md80/autopilot/speed_sel_more")
+		end 
+		
+		function LUARP_COMMAND_SPEED_DN()
+			command_once ("Rotate/md80/autopilot/speed_sel_less")
+		end 
+		
+		function LUARP_COMMAND_LNAV_TOGGLE()
+			command_once ("Rotate/md80/autopilot/nav_mode")
+		end 
+		
+		function LUARP_COMMAND_HDG_TOGGLE()
+			command_once ("Rotate/md80/autopilot/hdg_sel_mode")
+		end
+		
+		function LUARP_COMMAND_APP_TOGGLE()
+			command_once ("Rotate/md80/autopilot/ils_mode")
+		end 
+		
+		function LUARP_COMMAND_VORL_TOGGLE()
+			command_once ("Rotate/md80/autopilot/vorloc_mode")
+		end
+		
+		function LUARP_COMMAND_HDG_UP() 
+			command_once ("Rotate/md80/autopilot/hdg_sel_more")
+		end 
+		
+		function LUARP_COMMAND_HDG_DN() 
+			command_once ("Rotate/md80/autopilot/hdg_sel_less")
+		end 
+		
+		function LUARP_COMMAND_LVLCHG_TOGGLE()
+			command_once ("Rotate/md80/autopilot/ias_mach_sel")
+		end 
+		
+		function LUARP_COMMAND_ALTHLD_TOGGLE()
+			command_once ("Rotate/md80/autopilot/alt_hold_arm")
+		end 
+		
+		function LUARP_COMMAND_VNAV_TOGGLE()
+			command_once ("Rotate/md80/autopilot/vnav_sel")
+		end 
+		
+		function LUARP_COMMAND_ALT_UP() -- trying the alt increment chg. Not a nice way to do it 
+			command_once ("Rotate/md80/autopilot/alt_sel_more")
+		
+		end 		
+		
+		function LUARP_COMMAND_ALT_DN()
+			command_once ("Rotate/md80/autopilot/alt_sel_less")
+		end 
+		
+		function LUARP_COMMAND_VS_TOGGLE() 
+			command_once ("Rotate/md80/autopilot/v_speed_sel")
+		end
+		
+		function LUARP_COMMAND_VS_UP()
+			command_once ("Rotate/md80/autopilot/pcw_more")
+		end 
+		
+		function LUARP_COMMAND_VS_DN()	
+			command_once ("Rotate/md80/autopilot/pcw_less")
+
+		end 
+		
+		function LUARP_COMMAND_CRS_UP()
+			command_once ("Rotate/md80/autopilot/nav1_crs_more")
+		end 
+		
+		function LUARP_COMMAND_CRS_DN() 
+			command_once ("Rotate/md80/autopilot/nav1_crs_less")
+		end 
+		
+		function LUARP_COMMAND_CRS2_UP()
+		end 
+		
+		function LUARP_COMMAND_CRS2_DN() 
+		end 
+		
+		
+			
+		
+		-- tcas stuff
+
+		dataref("maddog_tcas", "Rotate/md80/instruments/transponder_mode_switch", "writeable")
+		
+		function LUARP_COMMAND_TCAS_STBY()
+			maddog_tcas = 1
+		end
+		
+		function LUARP_COMMAND_TCAS_XPDR()
+			maddog_tcas = 4
+		end
+		function LUARP_COMMAND_TCAS_TA()
+			maddog_tcas = 3
+		end
+		function LUARP_COMMAND_TCAS_TARA()
+			maddog_tcas = 2
+		end
+
+
 -- TOLISS
 elseif PLANE_ICAO == "A319" and XPLMFindDataRef == "AirbusFBW/SPDmanaged" ~= nil then 
 
@@ -441,10 +668,10 @@ function toliss_squawk()
 
 	if old_code ~= squawk_for_toliss_luarp_num then 
 		
-		toliss_sq_timer = toliss_sq_timer + 1 -- increase timer		
-	end 
+		--toliss_sq_timer = toliss_sq_timer + 1 -- increase timer		
+	--end 
 
-	if (toliss_sq_timer > 3) then
+	--if (toliss_sq_timer > 10) then
 
 		-- get the numbers to be digits one by one 
 		local sq_str = tostring(squawk_for_toliss_luarp_num)
@@ -496,7 +723,7 @@ function toliss_squawk()
 
 	
 end
-do_often("toliss_squawk()")
+do_sometimes("toliss_squawk()")
 
 
 dataref("toliss_ap1_status", "AirbusFBW/AP1Engage", "readonly")
@@ -962,10 +1189,12 @@ dataref("AP1_FROM_ACF_LUARP", "A300/MCDU/ap1_on", "readonly")  -- INOP
 dataref("AP2_FROM_ACF_LUARP", "A300/MCDU/ap2_on", "readonly")  -- INOP
 
 -- Throttle and speed
-Dataref("ATHR_FROM_ACF_LUARP", "A300/MCDU/autothrottle_armed", "readonly") -- INOP
+dataref("ATHR_FROM_ACF_LUARP", "A300/MCDU/autothrottle_armed", "readonly") -- INOP
 
 -- dataref("N1_FROM_ACF_LUARP", "laminar/B738/autopilot/n1_status", "readonly") -- INOP
 SPD_FROM_ACF_LUARP = 0  -- No separate speed mode. Speed can only be controlled when not in profile mode
+LUARP_NAV1_STBY_STATUS[0] = 1
+LUARP_INI_A300[0] = 1
 
 dataref("SPEED_VAL_FROM_ACF_LUARP", "sim/cockpit2/autopilot/airspeed_dial_kts_mach", "readonly") -- not working, havent found the correct dataref
 
@@ -994,7 +1223,13 @@ VS_FROM_ACF_LUARP = 0 -- no light for VS
 dataref("VS_VAL_FROM_ACF_LUARP", "sim/cockpit2/autopilot/vvi_dial_fpm", "writeable") 
 
 -- CRS
-dataref ("CRS_VAL_FROM_ACF_LUARP", "sim/cockpit2/radios/actuators/nav1_course_deg_mag_pilot", "writeable")
+dataref ("CRS_VAL_FROM_ACF_LUARP", "A300/radios/ils_course", "writeable")
+function ini_crs_refresh()
+	if CRS_VAL_FROM_ACF_LUARP >= 360 then CRS_VAL_FROM_ACF_LUARP = 0 end
+	if CRS_VAL_FROM_ACF_LUARP < 0 then CRS_VAL_FROM_ACF_LUARP = 359 end
+end
+do_every_frame("ini_crs_refresh()")
+
 
 -- what happens when actuating the custom commands
 -- bit awkward, dunno why works with other planes without the clock. But anyway, gonna have to make a timer for all the buttons 
@@ -1153,6 +1388,30 @@ function LUARP_ALT_INCREMENT_CHG()
 			cooldown_for_incrmnt = os.clock() -- reset timer 
 	end 
 end 
+
+
+dataref("INI_TCAS_MODE_LUARP", "A300/RMP/tcas_mode", "writeable")
+
+function LUARP_COMMAND_TCAS_STBY()
+	INI_TCAS_MODE_LUARP = 0
+end
+
+function LUARP_COMMAND_TCAS_TA()
+	INI_TCAS_MODE_LUARP = 2
+end
+
+function LUARP_COMMAND_TCAS_TARA()
+	INI_TCAS_MODE_LUARP = 1
+end
+
+function LUARP_COMMAND_TCAS_XPDR()
+	INI_TCAS_MODE_LUARP = 3
+end
+
+
+
+
+
 end
 
 
