@@ -1,0 +1,1346 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="c4e70d5b-7878-45e0-baaa-3fb3c04bfbb6">
+      <active>true</active>
+      <description>SPD Status</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_SPD_STATUS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="446a721c-4b83-45da-abae-84e748e80815">
+      <active>true</active>
+      <description>HDG Status</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_HDG_STATUS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="703184d1-9139-480e-bd29-489b4c2bd77d">
+      <active>true</active>
+      <description>ALT Status</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_ALT_STATUS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c67dce84-315b-41dd-833d-6a5c9c90a48d">
+      <active>true</active>
+      <description>VS Status</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_VS_STATUS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f4cf5c81-efca-4a5e-9221-deea3b55cec2">
+      <active>true</active>
+      <description>CRS Status</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_CRS_STATUS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6ec7b0b8-b9c4-4c9c-9d67-e6b15e0ff6ac">
+      <active>true</active>
+      <description>SPD Window Shown</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_DRAWN_SPEED" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="1" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2" />
+        <preconditions>
+          <precondition type="config" active="true" ref="c4e70d5b-7878-45e0-baaa-3fb3c04bfbb6" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="09035925-d3bc-489e-bb31-a98864de3888">
+      <active>true</active>
+      <description>SPD Window Blank </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue=" " elseValue=" " />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="1" ledModuleSize="6" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2" />
+        <preconditions>
+          <precondition type="config" active="true" ref="c4e70d5b-7878-45e0-baaa-3fb3c04bfbb6" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="95797e04-6a07-467a-be9d-d9aa89e44e2c">
+      <active>true</active>
+      <description>SPD Window Dashed</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="---" elseValue="---" />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="1" ledModuleSize="6" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2" ledDecimalPoints="2" />
+        <preconditions>
+          <precondition type="config" active="true" ref="c4e70d5b-7878-45e0-baaa-3fb3c04bfbb6" operand="=" value="2" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ee232120-b1c6-4fd3-bf61-3c9d6ec52c87">
+      <active>true</active>
+      <description>HDG Window Shown</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_DRAWN_HDG" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="1" ledModuleSize="6" ledPadding="True" ledReverseDigits="True" ledPaddingChar="0" ledDigits="3,4,5" />
+        <preconditions>
+          <precondition type="config" active="true" ref="446a721c-4b83-45da-abae-84e748e80815" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="80e07ddd-c7d5-4569-992d-ce83cfb6454d">
+      <active>true</active>
+      <description>HDG Window Blank</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="   " elseValue="   " />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="1" ledModuleSize="6" ledPadding="False" ledPaddingChar="0" ledDigits="3,4,5" />
+        <preconditions>
+          <precondition type="config" active="true" ref="446a721c-4b83-45da-abae-84e748e80815" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="deb8754a-a626-45bc-b0cd-159dd8d32426">
+      <active>true</active>
+      <description>HDG Window Dashed</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="---" elseValue="---" />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="1" ledModuleSize="6" ledPadding="False" ledPaddingChar="0" ledDigits="3,4,5" ledDecimalPoints="5" />
+        <preconditions>
+          <precondition type="config" active="true" ref="446a721c-4b83-45da-abae-84e748e80815" operand="=" value="2" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="59fc3e63-113e-4286-a004-b312cf67bdc6">
+      <active>true</active>
+      <description>ALT Window Shown</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_DRAWN_ALT" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="2" ledModuleSize="5" ledPadding="True" ledReverseDigits="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9239c0a3-04a8-463a-af9a-29a09896b99f">
+      <active>true</active>
+      <description>VS Window Shown</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_DRAWN_VS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="3" ledModuleSize="6" ledPadding="True" ledReverseDigits="True" ledPaddingChar=" " ledDigits="0,1,2" />
+        <preconditions>
+          <precondition type="config" active="true" ref="c67dce84-315b-41dd-833d-6a5c9c90a48d" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="12138e11-5a35-46c6-b670-ba881be0a3ff">
+      <active>true</active>
+      <description>VS Window Blank</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="   " elseValue="   " />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="3" ledModuleSize="6" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2" />
+        <preconditions>
+          <precondition type="config" active="true" ref="c67dce84-315b-41dd-833d-6a5c9c90a48d" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7159f17a-8bef-4400-94f0-fddb7c0b9bec">
+      <active>true</active>
+      <description>VS Window Dashed</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="---" elseValue="---" />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="3" ledModuleSize="6" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2" />
+        <preconditions>
+          <precondition type="config" active="true" ref="c67dce84-315b-41dd-833d-6a5c9c90a48d" operand="=" value="2" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f0756460-d8ed-4319-93bc-d405cf451674">
+      <active>true</active>
+      <description>CRS Window Shown</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_DRAWN_CRS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="3" ledModuleSize="6" ledPadding="True" ledReverseDigits="True" ledPaddingChar="0" ledDigits="3,4,5" />
+        <preconditions>
+          <precondition type="config" active="true" ref="f4cf5c81-efca-4a5e-9221-deea3b55cec2" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="edcb5b54-a8e4-4d76-bb28-ab40ef3e8e8b">
+      <active>true</active>
+      <description>CRS Window Blank</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="   " elseValue="   " />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="3" ledModuleSize="6" ledPadding="False" ledPaddingChar="0" ledDigits="3,4,5" />
+        <preconditions>
+          <precondition type="config" active="true" ref="f4cf5c81-efca-4a5e-9221-deea3b55cec2" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="88333ad3-bc48-4e01-8f09-8f79d3e48c2c">
+      <active>true</active>
+      <description>SPD LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_IS_SPD_ON" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="ShiftRegister" serial="MCP/ SN-769-a6a" trigger="normal" shiftRegister="Leds" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="02ba8abd-6735-449d-a3d6-e7092e1d0245">
+      <active>true</active>
+      <description>LNAV LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_IS_LNAV_ON" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="ShiftRegister" serial="MCP/ SN-769-a6a" trigger="normal" shiftRegister="Leds" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7f31dcc0-dc3b-4740-9d53-580c66c3b51f">
+      <active>true</active>
+      <description>HDG LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_IS_HDG_ON" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="ShiftRegister" serial="MCP/ SN-769-a6a" trigger="normal" shiftRegister="Leds" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ae040f99-0b68-4ee7-9c6f-f94b0305525b">
+      <active>true</active>
+      <description>APP LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_IS_APP_ON" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="ShiftRegister" serial="MCP/ SN-769-a6a" trigger="normal" shiftRegister="Leds" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7ba1a9e4-0d69-4be3-91d1-05ce718b048a">
+      <active>true</active>
+      <description>VORL LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_IS_VORL_ON" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="ShiftRegister" serial="MCP/ SN-769-a6a" trigger="normal" shiftRegister="Leds" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="42180a88-8a52-4f44-9a34-42247019b6bd">
+      <active>true</active>
+      <description>VNAV LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_IS_VNAV_ON" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="ShiftRegister" serial="MCP/ SN-769-a6a" trigger="normal" shiftRegister="Leds" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="277333c2-b799-498f-a44a-ffed4f7ea65f">
+      <active>true</active>
+      <description>ALTHLD LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_IS_ALTHLD_ON" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="ShiftRegister" serial="MCP/ SN-769-a6a" trigger="normal" shiftRegister="Leds" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e0a0d39b-44fc-4b5d-900b-978aa87108d3">
+      <active>true</active>
+      <description>LVLCHG LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_IS_LVLCHG_ON" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="ShiftRegister" serial="MCP/ SN-769-a6a" trigger="normal" shiftRegister="Leds" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6ab36f9e-43f7-4b01-adc6-cd588837b516">
+      <active>true</active>
+      <description>VS LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_IS_VS_ON" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="ShiftRegister" serial="MCP/ SN-769-a6a" trigger="normal" shiftRegister="Leds" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d15af757-0096-4ee7-957c-aece514a05cd">
+      <active>true</active>
+      <description>COM1 ACTV DRAWN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/radios/actuators/com1_frequency_hz_833" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="COMs_NAV_left" ledConnector="2" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions>
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e0e23c91-5751-4daa-9691-e54e821ad6f3">
+      <active>true</active>
+      <description>COM1STBY STATUS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_COM1_STBY_STATUS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="66b21751-ae7c-4dab-a86c-8d380919e838">
+      <active>true</active>
+      <description>NAV1 ACTV STATUS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_NAV1_ACTV_STATUS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0b043d5e-fb7f-4036-bcd5-ac819f589453">
+      <active>true</active>
+      <description>NAV1 STBY STATUS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_NAV1_STBY_STATUS" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="542cd9dc-a979-4ba6-ae54-ac44c59d89f9">
+      <active>true</active>
+      <description>COM1 STBY DRAWN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/radios/actuators/com1_standby_frequency_hz_833" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="COMs_NAV_left" ledConnector="1" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions>
+          <precondition type="config" active="true" ref="e0e23c91-5751-4daa-9691-e54e821ad6f3" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="73cb8b1b-0696-43d8-8d51-6f780c5cac1a">
+      <active>true</active>
+      <description>NAV1 ACTV DRAWN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/radios/actuators/nav1_frequency_hz" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="NAV_SQ" ledConnector="1" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions>
+          <precondition type="config" active="true" ref="66b21751-ae7c-4dab-a86c-8d380919e838" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="d6a842fe-9fff-49aa-8527-e4754cbde110" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bd18bb73-ded9-4bab-8a1a-b2312eded064">
+      <active>true</active>
+      <description>NAV1 STBY DRAWN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/radios/actuators/nav1_standby_frequency_hz" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="COMs_NAV_left" ledConnector="3" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions>
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8b7648ee-9d23-434c-9b4a-9e983bc5a40e">
+      <active>true</active>
+      <description>NAV1 ACTV BLANK</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="      " elseValue="      " />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="NAV_SQ" ledConnector="1" ledModuleSize="6" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" />
+        <preconditions>
+          <precondition type="config" active="true" ref="66b21751-ae7c-4dab-a86c-8d380919e838" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d9310528-4715-4e41-aa0b-6d6ab9b5a85c">
+      <active>true</active>
+      <description>NAV1 STBY BLANK</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="      " elseValue="      " />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="COMs_NAV_left" ledConnector="3" ledModuleSize="6" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" />
+        <preconditions>
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="03514aa0-d933-4a76-9c65-afd4e1fc5ad2">
+      <active>true</active>
+      <description>SQUAWK DRAWN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/radios/transponder_code" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="NAV_SQ" ledConnector="2" ledModuleSize="4" ledPadding="True" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ac7bbab6-4244-46ee-89c7-642b83f00134">
+      <active>true</active>
+      <description>com_sw_pos</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_COM_SW" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cc2aa069-703f-4665-81a0-07d1c5fd1526">
+      <active>true</active>
+      <description>nav_sw_pos</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_NAV_SW" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f17b0d01-c257-4cf5-ab86-25d8f2dfc1d8">
+      <active>true</active>
+      <description>COM2 actv drawn</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/radios/com2_freq_hz" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="COMs_NAV_left" ledConnector="2" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions>
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="12568683-e1be-48ac-8e4f-c9a40111e118">
+      <active>true</active>
+      <description>COM2 stby drawn</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/radios/com2_stdby_freq_hz" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="COMs_NAV_left" ledConnector="1" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions>
+          <precondition type="config" active="true" ref="e0e23c91-5751-4daa-9691-e54e821ad6f3" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="303abdca-d0ee-442b-b26c-c8258e8e3b9e">
+      <active>true</active>
+      <description>NAV2 actv drawn</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/radios/nav2_freq_hz" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="NAV_SQ" ledConnector="1" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions>
+          <precondition type="config" active="true" ref="66b21751-ae7c-4dab-a86c-8d380919e838" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="128367e0-04b1-4dcd-a2e7-d8b6be8c9f9d">
+      <active>true</active>
+      <description>CRS2 drawn</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_DRAWN_CRS2" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="MCP/ SN-769-a6a" trigger="normal" ledAddress="7 Segs" ledConnector="3" ledModuleSize="6" ledPadding="True" ledReverseDigits="True" ledPaddingChar="0" ledDigits="3,4,5" />
+        <preconditions>
+          <precondition type="config" active="true" ref="f4cf5c81-efca-4a5e-9221-deea3b55cec2" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="34f205f9-671d-44f3-84ad-0fa3adee0afb">
+      <active>true</active>
+      <description>NAV2 stby drawn</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/radios/nav2_stdby_freq_hz" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="COMs_NAV_left" ledConnector="3" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions>
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d6a842fe-9fff-49aa-8527-e4754cbde110">
+      <active>true</active>
+      <description>IS INI A300</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="FlyWithLua/LUARP_INI_A300" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3eaf2a9a-8770-4b01-a54e-261a4aa06347">
+      <active>true</active>
+      <description>INI A300 ILS freq</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="A300/radios/ils_frequency" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" trigger="normal" ledAddress="NAV_SQ" ledConnector="1" ledModuleSize="6" ledPadding="False" ledReverseDigits="True" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" />
+        <preconditions>
+          <precondition type="config" active="true" ref="d6a842fe-9fff-49aa-8527-e4754cbde110" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="20d779b2-b44f-439a-8b57-d336e1682264">
+      <active>true</active>
+      <description>SPD TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_SPD_TOGGLE" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0064a90e-357a-494a-95ff-3473129336d9">
+      <active>true</active>
+      <description>LNAV TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_LNAV_TOGGLE" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6e618ff8-17b6-4fee-94fd-30e03fecb81f">
+      <active>true</active>
+      <description>HDG TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_HDG_TOGGLE" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="625352e3-99a8-4027-bc1a-e8a57b68b22b">
+      <active>true</active>
+      <description>APP TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_APP_TOGGLE" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c0189a55-cfee-4282-ace3-d77f2ebfcd4e">
+      <active>true</active>
+      <description>VORL TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button7" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_VORL_TOGGLE" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7e87e4ec-d5f6-4ffd-bea1-15465d951a49">
+      <active>true</active>
+      <description>VNAV TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button8" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_VNAV_TOGGLE" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e67ce731-9ebc-436c-b87d-1777a963fe27">
+      <active>true</active>
+      <description>LVL CHG TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button10" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_LVLCHG_TOGGLE" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7788cff3-09fe-4b77-85f1-bf5e9f1b05bf">
+      <active>true</active>
+      <description>ALT HLD TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button9" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_ALTHLD_TOGGLE" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="77ea046a-9eb8-42d7-a2b0-db5aa2c3d71d">
+      <active>true</active>
+      <description>VS TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button13" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_VS_TOGGLE" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="613ddf52-c853-4715-850b-fb63947e1239">
+      <active>true</active>
+      <description>COM1 FLIP</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="COM_swap" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="sim/radios/com1_standy_flip" expression="" />
+          <onRelease />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2997bcea-0caa-4b89-ba0d-0129162426bc">
+      <active>true</active>
+      <description>NAV1 FLIP</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_swap" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="sim/radios/nav1_standy_flip" expression="" />
+          <onRelease />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fd09eee6-0824-4926-a51d-c522a5ef3103">
+      <active>true</active>
+      <description>IDENT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="IDENT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="sim/transponder/transponder_ident" expression="" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0d9e0baa-9b39-48f9-916a-43e1612fab0a">
+      <active>true</active>
+      <description>SPD ROTARY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="SPD encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_SPEED_DN" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_SPEED_UP" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dfd073ab-f2ef-4bf6-b3a1-679862012a8b">
+      <active>true</active>
+      <description>HDG ROTARY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="HDG encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_HDG_UP" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_HDG_DN" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e54081c6-4c75-4cef-83ff-4bd1bd975a5f">
+      <active>true</active>
+      <description>ALT ROTARY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="ALT encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_ALT_DN" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_ALT_UP" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bc5fc992-5d39-4b0f-865f-e7ee3a919484">
+      <active>true</active>
+      <description>100_1000</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button11" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_ALT_INCREMENT_CHG" expression="" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4edbab92-e16c-4185-969c-794f81e6720a">
+      <active>true</active>
+      <description>VS ROTARY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="VS encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_VS_DN" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_VS_UP" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5b5d241b-6bc8-4895-a94c-ac8b628ec7ee">
+      <active>true</active>
+      <description>COM_MHZ</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="COM_mhz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com1_coarse_up_833" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com1_coarse_down_833" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a52b9be2-e03c-4a17-bc33-36abe70dbe91">
+      <active>true</active>
+      <description>COM_KHZ</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="COM_khz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com1_fine_up_833" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com1_fine_down_833" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ef27814d-e053-48ab-9619-92497f60e7e3">
+      <active>true</active>
+      <description>NAV_MHZ_stby</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_mhz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_nav1_coarse_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_nav1_coarse_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d6cbec82-617c-4cc1-ac2e-c97512e51d62">
+      <active>true</active>
+      <description>NAV KHZ_stby</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_khz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_nav1_fine_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_nav1_fine_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4f8f3ca5-8d6e-4a97-9957-953e6a2690cd">
+      <active>true</active>
+      <description>sq12</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="sq_12" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/transponder/transponder_12_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/transponder/transponder_12_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="105e3674-e6af-4a86-9228-b538c2ec3542">
+      <active>true</active>
+      <description>sq34</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="sq_34" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/transponder/transponder_34_up" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/transponder/transponder_34_down" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fcd085c5-58b9-4706-8a49-118d1f0ee61d">
+      <active>true</active>
+      <description>TCAS STBY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="TCAS_4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_TCAS_STBY" expression="" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3ada70a1-2eb9-4074-af32-1655a8189b3b">
+      <active>true</active>
+      <description>TCAS XPDR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="TCAS_3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_TCAS_XPDR" expression="" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="27ec2e1b-b716-4bec-a5c9-ebcaf9888693">
+      <active>true</active>
+      <description>TCAS TA</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="TCAS_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_TCAS_TA" expression="" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a811e307-498f-4056-b24d-f61881e084bc">
+      <active>true</active>
+      <description>TCAS TA RA</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="TCAS_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_TCAS_TARA" expression="" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ecebc374-3608-41eb-b0e2-3b5b79ae4e63">
+      <active>true</active>
+      <description>AP1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button15" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_AP1_OFF" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_AP1_ON" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6b7c81ed-55bf-423d-b309-015993cb9ccc">
+      <active>true</active>
+      <description>AP2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button14" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_AP2_OFF" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_AP2_ON" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d947e135-664d-4445-b29b-d6aa65238228">
+      <active>true</active>
+      <description>ATHR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Button3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_ATHR_OFF" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_ATHR_ON" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1c75b91e-ae14-44f0-9275-dad7e8209709">
+      <active>true</active>
+      <description>CRS1 Rotary</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Course encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_CRS_DN" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_CRS_UP" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="f4cf5c81-efca-4a5e-9221-deea3b55cec2" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4b871175-26ba-4f2d-bc39-648403894f60">
+      <active>true</active>
+      <description>NAV_MHZ_actv</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_mhz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/actv_nav1_coarse_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/actv_nav1_coarse_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="66b21751-ae7c-4dab-a86c-8d380919e838" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="d6a842fe-9fff-49aa-8527-e4754cbde110" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ca56d8ab-9b49-41da-9322-f3a6f65f6d10">
+      <active>true</active>
+      <description>NAV_KHZ_actv</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_khz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/actv_nav1_fine_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/actv_nav1_fine_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="66b21751-ae7c-4dab-a86c-8d380919e838" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="d6a842fe-9fff-49aa-8527-e4754cbde110" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="63ab3b7d-c173-4c07-a00d-87faf4fa527f">
+      <active>true</active>
+      <description>com sw</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="COM2_sw" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COM_SW_1" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COM_SW_2" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8dc3b4b5-d2dd-4388-9d32-daf41442e65a">
+      <active>true</active>
+      <description>com stby flip</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="COM_swap" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="sim/radios/com2_standy_flip" expression="" />
+          <onRelease />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0a85592a-0a5e-44dc-90f6-509fd9e8d591">
+      <active>true</active>
+      <description>COM2_mhz_rotary</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="COM_mhz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com2_coarse_up_833" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com2_coarse_down_833" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="15630b15-5832-4433-9eac-cdfb29536139">
+      <active>true</active>
+      <description>nav sw</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV2_sw" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_NAV_SW_1" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_NAV_SW_2" expression="" />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="66b21751-ae7c-4dab-a86c-8d380919e838" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a99d4a4e-271b-4ec5-8c07-2b98826df68e">
+      <active>true</active>
+      <description>CRS2 rotary</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MCP/ SN-769-a6a" name="Course encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_CRS2_DN" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="FlyWithLua/LUARP_COMMAND_CRS2_UP" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="66b21751-ae7c-4dab-a86c-8d380919e838" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8f652f53-2c83-4678-a36e-d1f488d47a0f">
+      <active>true</active>
+      <description>NAV2 stby flip</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_swap" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="sim/radios/nav2_standy_flip" expression="" />
+          <onRelease />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="90560f66-b8b3-4222-be27-4514c3c66396">
+      <active>true</active>
+      <description>NAV2 stby mhz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_mhz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_nav2_coarse_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_nav2_coarse_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="df180615-5985-408a-be3e-a4646c516665">
+      <active>true</active>
+      <description>NAV2 stby khz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_khz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_nav2_fine_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_nav2_fine_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8981bd92-6535-4e8a-a1c3-eebcc737fcd5">
+      <active>true</active>
+      <description>NAV2 actv mhz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_mhz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/actv_nav2_coarse_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/actv_nav2_coarse_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="09b83302-e4cd-4ed7-99ad-d1620267c2c3">
+      <active>true</active>
+      <description>NAV2 actv khz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_khz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/actv_nav2_fine_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/actv_nav2_fine_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="cc2aa069-703f-4665-81a0-07d1c5fd1526" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="0b043d5e-fb7f-4036-bcd5-ac819f589453" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="29e1f371-e21c-4f49-b551-3bedbd3bb061">
+      <active>true</active>
+      <description>com2 khz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="COM_khz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com2_fine_up_833" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com2_fine_down_833" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ac7bbab6-4244-46ee-89c7-642b83f00134" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5b43d507-53a2-4b15-b42a-4fc0d5741414">
+      <active>true</active>
+      <description>INI NAV mhz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_mhz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="A300/radios/ILS/freq_MHz/dial_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="A300/radios/ILS/freq_MHz/dial_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="d6a842fe-9fff-49aa-8527-e4754cbde110" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="80328638-3e72-4013-a874-e407ee39682b">
+      <active>true</active>
+      <description>INI NAV khz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="Radiopaneeli/ SN-ÿÿÿÿÿÿÿÿ" name="NAV_khz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="A300/radios/ILS/freq_kz/dial_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="A300/radios/ILS/freq_kz/dial_up" expression="" />
+          <onRightFast type="XplaneInputAction" inputType="Command" path="A300/radios/ILS/freq_kz/dial_up" expression="" />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="d6a842fe-9fff-49aa-8527-e4754cbde110" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>
