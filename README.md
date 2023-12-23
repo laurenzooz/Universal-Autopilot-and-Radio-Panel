@@ -8,4 +8,11 @@ Then, configure your mobiflight profile to use the new datarefs and commands. Yo
 For instance, "FlyWithLua/LUARP_DRAWN_SPEED" is the speed set in the autopilot, and command "FlyWithLua/LUARP_COMMAND_SPEED_UP" changes the speed up by one knot.
 
 ###My personal setup
-I created this project to be able to use my own autopilot and radio panels with all planes easily without having to manually change and configure the profile every time I fly a different plane. In images folder of this repository you can see what my panel looks like. I'm using two Arduino megas, one for the autopilot and one for the radio panel. I designed the panels myself using sketchup, and planned the wiring using tinyCAD.
+I created this project to be able to use my own autopilot and radio panels with all planes easily without having to manually change and configure the profile every time I fly a different plane. You can see more pictures of my panels in the pictures folder of this repository. I'm using two Arduino megas, one for the autopilot and one for the radio panel. I designed the panels myself using sketchup, and planned the wirings using tinyCAD.
+
+![Example](images/IMG_20230605_204505058_HDR.jpg)
+
+
+###Credits
+Huge thanks to MobiFlight, for making home cockpit projects easy! 
+https://github.com/MobiFlight/MobiFlight-Connector
